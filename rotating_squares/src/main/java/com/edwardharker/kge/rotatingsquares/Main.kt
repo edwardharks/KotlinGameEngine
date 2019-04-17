@@ -7,31 +7,29 @@ import com.edwardharker.kge.World
 import com.edwardharker.kge.component.Component
 import com.edwardharker.kge.component.TransformComponent
 import com.edwardharker.kge.entity.Entity
-import com.edwardharker.kge.entity.forEachWithComponents
 import com.edwardharker.kge.system.RenderSystem
 import com.edwardharker.kge.system.UpdateSystem
 import com.edwardharker.kge.util.plus
 
 fun main() {
-    val game = Game(
-        world = World(
-            entities = listOf(
-                Entity(
-                    id = "square-1",
-                    components = listOf(
-                        TransformComponent(),
-                        RotatePropertiesComponent(
-                            speed = 0.001f
-                        )
-                    )
-                )
-            ),
-            updateSystems = listOf(RotateSystem),
-            renderSystems = listOf(LoggingRenderSystem)
+    val world = World(
+        updateSystems = listOf(RotateSystem),
+        renderSystems = listOf(LoggingRenderSystem)
+    )
+
+    world.addEntityWithComponents(
+        entity = Entity(id = 1),
+        components = listOf(
+            TransformComponent(),
+            RotatePropertiesComponent(
+                speed = 0.001f
+            )
         )
     )
 
-    game.start()
+    Game(
+        world = world
+    ).start()
 }
 
 private data class RotatePropertiesComponent(
@@ -40,11 +38,10 @@ private data class RotatePropertiesComponent(
 
 private object RotateSystem : UpdateSystem {
     override fun update(world: World, deltaTime: Long) {
-        world.entities
-            .forEachWithComponents { transform: TransformComponent,
-                                     rotateProperties: RotatePropertiesComponent ->
-                transform.rotation = transform.rotation + rotateProperties.speed * deltaTime
-            }
+        world.forEachEntityWithComponents { transform: TransformComponent,
+                                            rotateProperties: RotatePropertiesComponent ->
+            transform.rotation = transform.rotation + rotateProperties.speed * deltaTime
+        }
     }
 }
 
@@ -52,7 +49,7 @@ private object LoggingRenderSystem : RenderSystem {
     override fun render(world: World) {
         println("~~~~~~~~~")
         println()
-        world.entities.forEachWithComponents { transform: TransformComponent ->
+        world.forEachEntityWithComponents { transform: TransformComponent ->
             println(transform)
         }
         println()
