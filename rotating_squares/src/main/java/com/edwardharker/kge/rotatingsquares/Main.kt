@@ -9,6 +9,7 @@ import com.edwardharker.kge.component.TransformComponent
 import com.edwardharker.kge.entity.Entity
 import com.edwardharker.kge.system.RenderSystem
 import com.edwardharker.kge.system.UpdateSystem
+import com.edwardharker.kge.util.Vector2
 import com.edwardharker.kge.util.plus
 
 fun main() {
@@ -23,6 +24,51 @@ fun main() {
             TransformComponent(),
             RotatePropertiesComponent(
                 speed = 0.001f
+            )
+        )
+    )
+
+    world.addEntityWithComponents(
+        entity = Entity(id = 2),
+        components = listOf(
+            TransformComponent(
+                position = Vector2(
+                    x = 2f,
+                    y = 0f
+                )
+            ),
+            RotatePropertiesComponent(
+                speed = 0.002f
+            )
+        )
+    )
+
+    world.addEntityWithComponents(
+        entity = Entity(id = 3),
+        components = listOf(
+            TransformComponent(
+                position = Vector2(
+                    x = 0f,
+                    y = 2f
+                )
+            ),
+            RotatePropertiesComponent(
+                speed = 0.003f
+            )
+        )
+    )
+
+    world.addEntityWithComponents(
+        entity = Entity(id = 4),
+        components = listOf(
+            TransformComponent(
+                position = Vector2(
+                    x = 2f,
+                    y = 2f
+                )
+            ),
+            RotatePropertiesComponent(
+                speed = 0.004f
             )
         )
     )

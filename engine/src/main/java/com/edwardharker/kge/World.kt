@@ -4,6 +4,7 @@ import com.edwardharker.kge.component.Component
 import com.edwardharker.kge.entity.Entity
 import com.edwardharker.kge.system.RenderSystem
 import com.edwardharker.kge.system.UpdateSystem
+import java.lang.IllegalArgumentException
 import java.lang.IllegalStateException
 import kotlin.reflect.KClass
 
@@ -21,6 +22,9 @@ class World(
     private val components: ComponentMap = mutableMapOf()
 
     fun addEntity(entity: Entity) {
+        if (_entities.contains(entity)) {
+            throw IllegalArgumentException("$entity already exists")
+        }
         _entities += entity
     }
 
@@ -31,7 +35,7 @@ class World(
 
     fun addComponent(entity: Entity, component: Component) {
         if (!_entities.contains(entity)) {
-            throw IllegalStateException("The entity [$entity] does not exist")
+            throw IllegalStateException("$entity does not exist")
         }
 
         if (!components.containsKey(component::class)) {
