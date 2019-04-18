@@ -1,5 +1,3 @@
-@file:JvmName("Main")
-
 package com.edwardharker.kge.rotatingsquares
 
 import com.edwardharker.kge.Game
@@ -11,8 +9,9 @@ import com.edwardharker.kge.system.RenderSystem
 import com.edwardharker.kge.system.UpdateSystem
 import com.edwardharker.kge.util.Vector2
 import com.edwardharker.kge.util.plus
+import kotlinx.coroutines.GlobalScope
 
-fun main() {
+fun createRotatingSquaresGame(): Game {
     val world = World(
         updateSystems = listOf(RotateSystem),
         renderSystems = listOf(LoggingRenderSystem)
@@ -73,9 +72,7 @@ fun main() {
         )
     )
 
-    Game(
-        world = world
-    ).start()
+    return Game(world = world)
 }
 
 private data class RotatePropertiesComponent(

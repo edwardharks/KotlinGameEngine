@@ -4,8 +4,6 @@ import com.edwardharker.kge.component.Component
 import com.edwardharker.kge.entity.Entity
 import com.edwardharker.kge.system.RenderSystem
 import com.edwardharker.kge.system.UpdateSystem
-import java.lang.IllegalArgumentException
-import java.lang.IllegalStateException
 import kotlin.reflect.KClass
 
 private typealias ComponentMap = MutableMap<KClass<out Component>, EntityComponentMap>

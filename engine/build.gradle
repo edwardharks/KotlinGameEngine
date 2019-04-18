@@ -1,13 +1,30 @@
-apply plugin: 'kotlin'
+apply plugin: 'kotlin-multiplatform'
 
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-}
+kotlin {
+    targets {
+        fromPreset(presets.jvm, 'jvm')
+        fromPreset(presets.js, 'js')
+        configure([jvm, js]) {
+            tasks.getByName(compilations.main.compileKotlinTaskName).kotlinOptions {
+                freeCompilerArgs = ["-XXLanguage:+InlineClasses"]
+            }
+        }
+    }
 
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"
-compileKotlin {
-    kotlinOptions {
-        freeCompilerArgs = ["-XXLanguage:+InlineClasses"]
+    sourceSets {
+        commonMain.dependencies {
+            api deps.kotlin.stdlib.common
+            api deps.kotlin.coroutines.common
+        }
+
+        jvmMain.dependencies {
+            api deps.kotlin.stdlib.jdk
+            api deps.kotlin.coroutines.jdk
+        }
+
+        jsMain.dependencies {
+            api deps.kotlin.stdlib.js
+            api deps.kotlin.coroutines.js
+        }
     }
 }

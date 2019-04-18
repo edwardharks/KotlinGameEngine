@@ -1,12 +1,52 @@
-apply plugin: 'kotlin'
-apply plugin: 'application'
+apply plugin: 'kotlin-multiplatform'
+apply plugin: 'org.jetbrains.kotlin.frontend'
 
-mainClassName = "com.edwardharker.kge.rotatingsquares.Main"
+kotlin {
+    targets {
+        fromPreset(presets.jvm, 'jvm')
+        fromPreset(presets.js, 'js') {
+            configure([compilations.main, compilations.test]) {
+                tasks.getByName(compileKotlinTaskName).kotlinOptions {
+                    sourceMap = true
+                    moduleKind = "umd"
+                    metaInfo = true
+                }
+            }
 
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation project(':engine')
+            configure(compilations.main) {
+                tasks.getByName(compileKotlinTaskName).kotlinOptions {
+                    main = "call"
+                }
+            }
+        }
+    }
+
+    sourceSets {
+        commonMain.dependencies {
+            implementation deps.kotlin.stdlib.common
+            implementation deps.kotlin.coroutines.common
+
+            implementation project(':engine')
+        }
+
+        jvmMain.dependencies {
+            implementation deps.kotlin.stdlib.jdk
+            implementation deps.kotlin.coroutines.jdk
+        }
+
+        jsMain.dependencies {
+            implementation deps.kotlin.stdlib.js
+            implementation deps.kotlin.coroutines.js
+        }
+    }
 }
 
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"
+kotlinFrontend {
+    sourceMaps = true
+
+    webpackBundle {
+        bundleName = 'rotating-squares'
+        contentPath = file('src/jsMain/web')
+    }
+}
+
