@@ -1,5 +1,6 @@
 package com.edwardharker.kge
 
+import com.edwardharker.kge.canvas.Canvas
 import com.edwardharker.kge.component.Component
 import com.edwardharker.kge.entity.Entity
 import com.edwardharker.kge.system.RenderSystem
@@ -11,7 +12,8 @@ private typealias EntityComponentMap = MutableMap<Entity, Component>
 
 class World(
     private val updateSystems: List<UpdateSystem> = emptyList(),
-    private val renderSystems: List<RenderSystem> = emptyList()
+    private val renderSystems: List<RenderSystem> = emptyList(),
+    val canvas: Canvas
 ) {
     private val _entities = mutableSetOf<Entity>()
     val entities: Set<Entity>
@@ -48,7 +50,7 @@ class World(
         return components[componentType] as Map<Entity, T>
     }
 
-    inline fun <reified T1 : Component> forEachEntityWithComponents(action: (T1) -> Unit) {
+    inline fun <reified T1 : Component> forEachEntityWithComponent(action: (T1) -> Unit) {
         val components = getComponentsOfType(T1::class)
         components?.values?.forEach { action(it) }
     }
@@ -76,9 +78,11 @@ class World(
     }
 
     internal fun render() {
+        canvas.startRender()
         renderSystems
             .forEach { system ->
                 system.render(this)
             }
+        canvas.endRender()
     }
 }

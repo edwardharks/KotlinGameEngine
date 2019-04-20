@@ -1,5 +1,6 @@
 package com.edwardharker.kge
 
+import com.edwardharker.kge.canvas.Canvas
 import com.edwardharker.kge.util.getCurrentTimeMillis
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
@@ -10,8 +11,11 @@ import kotlinx.coroutines.launch
 import kotlin.math.max
 
 class Game(
-    private val world: World
+    val world: World
 ) {
+    val canvas: Canvas
+        get() = world.canvas
+
     fun start(scope: CoroutineScope = GlobalScope): Job = scope.launch {
         var previous = getCurrentTimeMillis()
         var lag = 0.0
