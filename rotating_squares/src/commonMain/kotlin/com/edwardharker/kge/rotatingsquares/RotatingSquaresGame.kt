@@ -28,19 +28,21 @@ fun createRotatingSquaresGame(): Game {
         canvas = canvas
     )
 
-    val square = RectangleSpriteComponent(
-        width = 10f,
-        height = 10f,
-        colour = Colour.WHITE
-    )
 
     world.addEntityWithComponents(
         entity = Entity(id = 1),
         components = listOf(
             TransformComponent(
-                position = Vector2.ZERO
+                position = Vector2(
+                    x = 80f,
+                    y = 80f
+                )
             ),
-            square,
+            RectangleSpriteComponent(
+                width = 50f,
+                height = 50f,
+                colour = Colour.WHITE
+            ),
             RotatePropertiesComponent(
                 speed = 0.001f
             )
@@ -52,11 +54,15 @@ fun createRotatingSquaresGame(): Game {
         components = listOf(
             TransformComponent(
                 position = Vector2(
-                    x = 50f,
-                    y = 0f
+                    x = 180f,
+                    y = 80f
                 )
             ),
-            square,
+            RectangleSpriteComponent(
+                width = 50f,
+                height = 50f,
+                colour = Colour.RED
+            ),
             RotatePropertiesComponent(
                 speed = 0.002f
             )
@@ -68,11 +74,15 @@ fun createRotatingSquaresGame(): Game {
         components = listOf(
             TransformComponent(
                 position = Vector2(
-                    x = 0f,
-                    y = 50f
+                    x = 80f,
+                    y = 180f
                 )
             ),
-            square,
+            RectangleSpriteComponent(
+                width = 50f,
+                height = 50f,
+                colour = Colour.GREEN
+            ),
             RotatePropertiesComponent(
                 speed = 0.003f
             )
@@ -84,11 +94,15 @@ fun createRotatingSquaresGame(): Game {
         components = listOf(
             TransformComponent(
                 position = Vector2(
-                    x = 50f,
-                    y = 50f
+                    x = 180f,
+                    y = 180f
                 )
             ),
-            square,
+            RectangleSpriteComponent(
+                width = 50f,
+                height = 50f,
+                colour = Colour.BLUE
+            ),
             RotatePropertiesComponent(
                 speed = 0.004f
             )
@@ -104,9 +118,15 @@ private data class RotatePropertiesComponent(
 
 private object RotateSystem : UpdateSystem {
     override fun update(world: World, deltaTime: Long) {
-        world.forEachEntityWithComponents { transform: TransformComponent,
+        world.forEachEntityWithComponents { entity: Entity,
+                                            transform: TransformComponent,
                                             rotateProperties: RotatePropertiesComponent ->
-            transform.rotation = transform.rotation + rotateProperties.speed * deltaTime
+            world.addOrReplaceComponent(
+                entity,
+                transform.copy(
+                    rotation = transform.rotation + rotateProperties.speed * deltaTime
+                )
+            )
         }
     }
 }

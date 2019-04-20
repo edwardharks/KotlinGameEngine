@@ -30,10 +30,10 @@ class World(
 
     fun addEntityWithComponents(entity: Entity, components: List<Component>) {
         addEntity(entity)
-        components.forEach { addComponent(entity, it) }
+        components.forEach { addOrReplaceComponent(entity, it) }
     }
 
-    fun addComponent(entity: Entity, component: Component) {
+    fun addOrReplaceComponent(entity: Entity, component: Component) {
         if (!_entities.contains(entity)) {
             throw IllegalStateException("$entity does not exist")
         }
@@ -50,13 +50,18 @@ class World(
         return components[componentType] as Map<Entity, T>
     }
 
-    inline fun <reified T1 : Component> forEachEntityWithComponent(action: (T1) -> Unit) {
-        val components = getComponentsOfType(T1::class)
-        components?.values?.forEach { action(it) }
+    inline fun <reified T1 : Component> forEachEntityWithComponent(action: (Entity, T1) -> Unit) {
+        val componentMap = getComponentsOfType(T1::class)
+        for (entity in entities) {
+            val component = componentMap?.get(entity)
+            if (component != null) {
+                action(entity, component)
+            }
+        }
     }
 
     inline fun <reified T1 : Component, reified T2 : Component> forEachEntityWithComponents(
-        action: (T1, T2) -> Unit
+        action: (Entity, T1, T2) -> Unit
     ) {
         val componentMap1 = getComponentsOfType(T1::class)
         val componentMap2 = getComponentsOfType(T2::class)
@@ -65,7 +70,7 @@ class World(
             val component1 = componentMap1?.get(entity)
             val component2 = componentMap2?.get(entity)
             if (component1 != null && component2 != null) {
-                action(component1, component2)
+                action(entity, component1, component2)
             }
         }
     }
