@@ -3,7 +3,21 @@ apply plugin: 'kotlin-multiplatform'
 kotlin {
     targets {
         fromPreset(presets.jvm, 'jvm')
-        fromPreset(presets.js, 'js')
+        fromPreset(presets.js, 'js') {
+            configure([compilations.main, compilations.test]) {
+                tasks.getByName(compileKotlinTaskName).kotlinOptions {
+                    sourceMap = true
+                    moduleKind = "umd"
+                    metaInfo = true
+                }
+            }
+
+            configure(compilations.main) {
+                tasks.getByName(compileKotlinTaskName).kotlinOptions {
+                    main = "call"
+                }
+            }
+        }
         configure([jvm, js]) {
             tasks.getByName(compilations.main.compileKotlinTaskName).kotlinOptions {
                 freeCompilerArgs = ["-XXLanguage:+InlineClasses"]

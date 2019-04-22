@@ -1,5 +1,4 @@
 apply plugin: 'kotlin-multiplatform'
-apply plugin: 'org.jetbrains.kotlin.frontend'
 
 kotlin {
     targets {
@@ -26,27 +25,12 @@ kotlin {
             implementation deps.kotlin.stdlib.common
             implementation deps.kotlin.coroutines.common
 
-            implementation project(':engine')
+            api project(':engine')
         }
 
         jvmMain.dependencies {
             implementation deps.kotlin.stdlib.jdk
             implementation deps.kotlin.coroutines.jdk
         }
-
-        jsMain.dependencies {
-            implementation deps.kotlin.stdlib.js
-            implementation deps.kotlin.coroutines.js
-        }
     }
 }
-
-kotlinFrontend {
-    sourceMaps = true
-
-    webpackBundle {
-        bundleName = 'rotating-squares'
-        contentPath = file('src/jsMain/web')
-    }
-}
-

@@ -1,3 +1,7 @@
 package com.edwardharker.kge.render
 
-actual interface Renderer
+import org.w3c.dom.HTMLCanvasElement
+
+actual interface Renderer {
+    var htmlCanvas: HTMLCanvasElement?
+}

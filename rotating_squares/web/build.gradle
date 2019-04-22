@@ -1,0 +1,24 @@
+apply plugin: 'kotlin2js'
+apply plugin: 'kotlin-dce-js'
+apply plugin: 'org.jetbrains.kotlin.frontend'
+
+dependencies {
+    compile project(':rotating_squares')
+
+    compile deps.kotlin.stdlib.js
+    compile deps.kotlin.coroutines.js
+}
+
+kotlinFrontend {
+    sourceMaps = true
+
+    webpackBundle {
+        bundleName = 'rotating-squares'
+        contentPath = file('src/main/web')
+        mode = 'none'
+    }
+}
+
+compileKotlin2Js {
+    kotlinOptions.moduleKind = 'umd'
+}

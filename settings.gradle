@@ -1,1 +1,4 @@
-include ':app', ':engine', ':rotating_squares'
+include ':app'
+include ':engine'
+include ':rotating_squares'
+include ':rotating_squares:web'
