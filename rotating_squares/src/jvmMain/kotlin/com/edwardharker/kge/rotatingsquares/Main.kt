@@ -8,6 +8,9 @@ import javax.swing.JFrame
 fun main() = runBlocking {
     val game = createRotatingSquaresGame()
 
+    game.canvas.addMouseListener(game.input)
+    game.canvas.addMouseMotionListener(game.input)
+
     val frame = JFrame("Rotating Squares")
     frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
     frame.contentPane.add(game.canvas)

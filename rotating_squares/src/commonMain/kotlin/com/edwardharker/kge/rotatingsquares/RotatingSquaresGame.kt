@@ -4,10 +4,13 @@ import com.edwardharker.kge.Game
 import com.edwardharker.kge.World
 import com.edwardharker.kge.canvas.Canvas
 import com.edwardharker.kge.component.Component
+import com.edwardharker.kge.component.PointerComponent
 import com.edwardharker.kge.component.RectangleSpriteComponent
 import com.edwardharker.kge.component.TransformComponent
 import com.edwardharker.kge.entity.Entity
+import com.edwardharker.kge.input.Input
 import com.edwardharker.kge.render.RectangleRenderer
+import com.edwardharker.kge.system.PointerSystem
 import com.edwardharker.kge.system.RectangleRenderSystem
 import com.edwardharker.kge.system.UpdateSystem
 import com.edwardharker.kge.util.Colour
@@ -21,11 +24,18 @@ fun createRotatingSquaresGame(): Game {
     canvas.addRenderer(rectangleRenderer)
 
     val world = World(
-        updateSystems = listOf(RotateSystem),
+        inputSystems = listOf(
+            PointerSystem
+        ),
+        updateSystems = listOf(
+            RotateSystem,
+            MouseLoggingSystem
+        ),
         renderSystems = listOf(
             RectangleRenderSystem(rectangleRenderer)
         ),
-        canvas = canvas
+        canvas = canvas,
+        input = Input()
     )
 
 
@@ -45,7 +55,8 @@ fun createRotatingSquaresGame(): Game {
             ),
             RotatePropertiesComponent(
                 speed = 0.001f
-            )
+            ),
+            PointerComponent()
         )
     )
 
@@ -127,6 +138,14 @@ private object RotateSystem : UpdateSystem {
                     rotation = transform.rotation + rotateProperties.speed * deltaTime
                 )
             )
+        }
+    }
+}
+
+private object MouseLoggingSystem : UpdateSystem {
+    override fun update(world: World, deltaTime: Long) {
+        world.forEachEntityWithComponent { _, pointerComponent: PointerComponent ->
+            println(pointerComponent)
         }
     }
 }

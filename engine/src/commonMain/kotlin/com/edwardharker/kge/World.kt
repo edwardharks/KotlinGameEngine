@@ -3,6 +3,8 @@ package com.edwardharker.kge
 import com.edwardharker.kge.canvas.Canvas
 import com.edwardharker.kge.component.Component
 import com.edwardharker.kge.entity.Entity
+import com.edwardharker.kge.input.Input
+import com.edwardharker.kge.system.InputSystem
 import com.edwardharker.kge.system.RenderSystem
 import com.edwardharker.kge.system.UpdateSystem
 import kotlin.reflect.KClass
@@ -11,9 +13,11 @@ private typealias ComponentMap = MutableMap<KClass<out Component>, EntityCompone
 private typealias EntityComponentMap = MutableMap<Entity, Component>
 
 class World(
+    private val inputSystems: List<InputSystem> = emptyList(),
     private val updateSystems: List<UpdateSystem> = emptyList(),
     private val renderSystems: List<RenderSystem> = emptyList(),
-    val canvas: Canvas
+    val canvas: Canvas,
+    val input: Input
 ) {
     private val _entities = mutableSetOf<Entity>()
     val entities: Set<Entity>
@@ -73,6 +77,13 @@ class World(
                 action(entity, component1, component2)
             }
         }
+    }
+
+    internal fun handleInput() {
+        inputSystems
+            .forEach { system ->
+                system.handleInput(this)
+            }
     }
 
     internal fun update(deltaTime: Long) {

@@ -1,6 +1,7 @@
 package com.edwardharker.kge
 
 import com.edwardharker.kge.canvas.Canvas
+import com.edwardharker.kge.input.Input
 import com.edwardharker.kge.util.getCurrentTimeMillis
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
@@ -16,6 +17,9 @@ class Game(
     val canvas: Canvas
         get() = world.canvas
 
+    val input: Input
+        get() = world.input
+
     fun start(scope: CoroutineScope = GlobalScope): Job = scope.launch {
         var previous = getCurrentTimeMillis()
         var lag = 0.0
@@ -29,7 +33,11 @@ class Game(
 
             while (lag >= MS_PER_UPDATE) {
                 val currentUpdateTime = getCurrentTimeMillis()
+
+                world.handleInput()
+
                 world.update(currentUpdateTime - lastUpdateTime)
+
                 lag -= MS_PER_UPDATE
                 lastUpdateTime = currentUpdateTime
             }
