@@ -9,6 +9,7 @@ import com.edwardharker.kge.component.RectangleSpriteComponent
 import com.edwardharker.kge.component.TransformComponent
 import com.edwardharker.kge.entity.Entity
 import com.edwardharker.kge.input.Input
+import com.edwardharker.kge.input.PointerAction
 import com.edwardharker.kge.render.RectangleRenderer
 import com.edwardharker.kge.system.PointerSystem
 import com.edwardharker.kge.system.RectangleRenderSystem
@@ -29,7 +30,8 @@ fun createRotatingSquaresGame(): Game {
         ),
         updateSystems = listOf(
             RotateSystem,
-            MouseLoggingSystem
+            MouseLoggingSystem,
+            ChangeDirectionOnClickSystem
         ),
         renderSystems = listOf(
             RectangleRenderSystem(rectangleRenderer)
@@ -126,6 +128,21 @@ fun createRotatingSquaresGame(): Game {
 private data class RotatePropertiesComponent(
     val speed: Float
 ) : Component
+
+private object ChangeDirectionOnClickSystem : UpdateSystem {
+    override fun update(world: World, deltaTime: Long) {
+        world.forEachEntityWithComponents { entity: Entity,
+                                            pointer: PointerComponent,
+                                            rotateProperties: RotatePropertiesComponent ->
+            if (pointer.primaryPointerAction is PointerAction.Up) {
+                world.addOrReplaceComponent(
+                    entity = entity,
+                    component = rotateProperties.copy(speed = rotateProperties.speed * -1)
+                )
+            }
+        }
+    }
+}
 
 private object RotateSystem : UpdateSystem {
     override fun update(world: World, deltaTime: Long) {
