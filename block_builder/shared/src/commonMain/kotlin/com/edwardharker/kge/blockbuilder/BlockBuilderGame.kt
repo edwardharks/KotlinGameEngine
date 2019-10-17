@@ -8,7 +8,9 @@ import com.edwardharker.kge.component.TransformComponent
 import com.edwardharker.kge.component.cameraComponent
 import com.edwardharker.kge.entity.Entity
 import com.edwardharker.kge.input.Input
+import com.edwardharker.kge.render.CameraRenderer
 import com.edwardharker.kge.render.RectangleRenderer
+import com.edwardharker.kge.system.CameraRenderSystem
 import com.edwardharker.kge.system.PointerSystem
 import com.edwardharker.kge.system.RectangleRenderSystem
 import com.edwardharker.kge.system.cameraSystem
@@ -25,12 +27,16 @@ fun createBlockBuilderGame(): Game {
     val rectangleRenderer = RectangleRenderer()
     canvas.addRenderer(rectangleRenderer)
 
+    val cameraRenderer = CameraRenderer()
+    canvas.addRenderer(cameraRenderer)
+
     val world = World(
         inputSystems = listOf(
             PointerSystem
         ),
         updateSystems = cameraSystem(),
         renderSystems = listOf(
+            CameraRenderSystem(cameraRenderer),
             RectangleRenderSystem(rectangleRenderer)
         ),
         canvas = canvas,

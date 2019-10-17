@@ -1,19 +1,13 @@
 package com.edwardharker.kge.render
 
-import com.edwardharker.kge.component.CameraComponent
 import com.edwardharker.kge.component.RectangleSpriteComponent
 import com.edwardharker.kge.component.TransformComponent
-import com.edwardharker.kge.util.toJsColor
-import org.w3c.dom.CanvasRenderingContext2D
-import org.w3c.dom.CaretPosition
 import org.w3c.dom.HTMLCanvasElement
 
 actual class RectangleRenderer : Renderer {
     override var htmlCanvas: HTMLCanvasElement? = null
 
     actual fun renderRectangle(
-        cameraPosition: TransformComponent,
-        camera: CameraComponent,
         transform: TransformComponent,
         rectangle: RectangleSpriteComponent
     ) {

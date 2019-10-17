@@ -1,8 +1,8 @@
 package com.edwardharker.kge.render
 
-import java.awt.Graphics2D
+import java.awt.Graphics
 
-typealias RenderCommand = (Graphics2D) -> Unit
+typealias RenderCommand = (Graphics) -> Unit
 
 actual interface Renderer {
     var addRenderCommand: (RenderCommand) -> Unit

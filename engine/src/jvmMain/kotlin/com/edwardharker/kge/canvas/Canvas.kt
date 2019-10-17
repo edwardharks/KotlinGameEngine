@@ -27,9 +27,7 @@ actual class Canvas : JPanel() {
                 return@synchronized currentRenderCommands.toList()
             }
             renderCommands.forEach { command ->
-                val graphics = g.create() as Graphics2D
-                command.invoke(graphics)
-                graphics.dispose()
+                command.invoke(g)
             }
         }
     }
