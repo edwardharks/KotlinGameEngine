@@ -4,7 +4,6 @@ import com.edwardharker.kge.World
 import com.edwardharker.kge.component.PointerComponent
 import com.edwardharker.kge.input.PointerAction
 
-
 object PointerSystem : InputSystem {
     override fun handleInput(world: World) {
         world.forEachEntityWithComponent { entity, pointer: PointerComponent ->

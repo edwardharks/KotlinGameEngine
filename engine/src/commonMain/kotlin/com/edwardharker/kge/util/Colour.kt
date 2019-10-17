@@ -43,5 +43,12 @@ data class Colour(
             green = 0,
             blue = 255
         )
+
+        val GREY = Colour(
+            alpha = 255,
+            red = 128,
+            green = 128,
+            blue = 128
+        )
     }
 }

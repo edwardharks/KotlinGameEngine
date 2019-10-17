@@ -15,11 +15,6 @@ actual class Canvas : JPanel() {
     private var nextRenderCommands: MutableList<RenderCommand> = mutableListOf()
     private val lock = Any()
 
-    init {
-        background = Color.BLACK
-        setSize(400, 400)
-    }
-
     actual fun addRenderer(renderer: Renderer) {
         renderer.addRenderCommand = this::addRenderCommand
         renderers += renderer

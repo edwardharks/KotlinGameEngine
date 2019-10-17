@@ -15,9 +15,9 @@ class RectangleRenderSystem(
                                             transform: TransformComponent,
                                             rectangle: RectangleSpriteComponent ->
             world.forEachEntityWithComponents { _: Entity,
-                                                _: CameraComponent,
+                                                camera: CameraComponent,
                                                 cameraPosition: TransformComponent ->
-                rectangleRenderer.renderRectangle(cameraPosition, transform, rectangle)
+                rectangleRenderer.renderRectangle(cameraPosition, camera, transform, rectangle)
             }
         }
     }
