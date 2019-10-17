@@ -30,7 +30,6 @@ fun createRotatingSquaresGame(): Game {
         ),
         updateSystems = listOf(
             RotateSystem,
-            MouseLoggingSystem,
             ChangeDirectionOnClickSystem
         ),
         renderSystems = listOf(
@@ -155,14 +154,6 @@ private object RotateSystem : UpdateSystem {
                     rotation = transform.rotation + rotateProperties.speed * deltaTime
                 )
             )
-        }
-    }
-}
-
-private object MouseLoggingSystem : UpdateSystem {
-    override fun update(world: World, deltaTime: Long) {
-        world.forEachEntityWithComponent { _, pointerComponent: PointerComponent ->
-            println(pointerComponent)
         }
     }
 }

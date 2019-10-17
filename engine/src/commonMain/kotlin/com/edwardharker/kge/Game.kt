@@ -34,15 +34,21 @@ class Game(
             while (lag >= MS_PER_UPDATE) {
                 val currentUpdateTime = getCurrentTimeMillis()
 
+                val beforeInput = getCurrentTimeMillis()
                 world.handleInput()
+                println("Input duration: ${beforeInput - getCurrentTimeMillis()}")
 
+                val beforeUpdate = getCurrentTimeMillis()
                 world.update(currentUpdateTime - lastUpdateTime)
+                println("Update duration: ${beforeUpdate - getCurrentTimeMillis()}")
 
                 lag -= MS_PER_UPDATE
                 lastUpdateTime = currentUpdateTime
             }
 
+            val beforeRender = getCurrentTimeMillis()
             world.render()
+            println("Render duration: ${beforeRender - getCurrentTimeMillis()}")
 
             delay(max(current + MS_PER_FRAME - getCurrentTimeMillis(), 0))
         }

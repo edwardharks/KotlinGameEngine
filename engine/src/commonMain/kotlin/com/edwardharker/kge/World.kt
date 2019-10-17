@@ -26,9 +26,7 @@ class World(
     private val components: ComponentMap = mutableMapOf()
 
     fun addEntity(entity: Entity) {
-        if (_entities.contains(entity)) {
-            throw IllegalArgumentException("$entity already exists")
-        }
+        require(!_entities.contains(entity)) { "$entity already exists" }
         _entities += entity
     }
 
@@ -38,9 +36,7 @@ class World(
     }
 
     fun addOrReplaceComponent(entity: Entity, component: Component) {
-        if (!_entities.contains(entity)) {
-            throw IllegalStateException("$entity does not exist")
-        }
+        check(_entities.contains(entity)) { "$entity does not exist" }
 
         if (!components.containsKey(component::class)) {
             components[component::class] = mutableMapOf()
