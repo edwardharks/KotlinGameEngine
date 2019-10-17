@@ -1,8 +1,9 @@
-package com.edwardharker.kge.rotatingsquares
+package com.edwardharker.kge.blockbuilder
 
 import com.edwardharker.kge.Game
 import com.edwardharker.kge.World
 import com.edwardharker.kge.canvas.Canvas
+import com.edwardharker.kge.component.CameraComponent
 import com.edwardharker.kge.component.Component
 import com.edwardharker.kge.component.PointerComponent
 import com.edwardharker.kge.component.RectangleSpriteComponent
@@ -17,7 +18,7 @@ import com.edwardharker.kge.system.UpdateSystem
 import com.edwardharker.kge.util.Colour
 import com.edwardharker.kge.util.Vector2
 
-fun createRotatingSquaresGame(): Game {
+fun createBlockBuilderGame(): Game {
     val canvas = Canvas()
 
     val rectangleRenderer = RectangleRenderer()
@@ -38,25 +39,33 @@ fun createRotatingSquaresGame(): Game {
         input = Input()
     )
 
+    world.addEntityWithComponents(
+        entity = Entity(0),
+        components = listOf(
+            TransformComponent(
+                position = Vector2(
+                    x = 400f,
+                    y = -400f
+                )
+            ),
+            CameraComponent()
+        )
+    )
 
     world.addEntityWithComponents(
         entity = Entity(id = 1),
         components = listOf(
             TransformComponent(
                 position = Vector2(
-                    x = 80f,
-                    y = 80f
+                    x = 0f,
+                    y = 0f
                 )
             ),
             RectangleSpriteComponent(
                 width = 50f,
                 height = 50f,
                 colour = Colour.WHITE
-            ),
-            RotatePropertiesComponent(
-                speed = 0.001f
-            ),
-            PointerComponent()
+            )
         )
     )
 
@@ -65,17 +74,14 @@ fun createRotatingSquaresGame(): Game {
         components = listOf(
             TransformComponent(
                 position = Vector2(
-                    x = 180f,
-                    y = 80f
+                    x = 60f,
+                    y = 60f
                 )
             ),
             RectangleSpriteComponent(
                 width = 50f,
                 height = 50f,
-                colour = Colour.RED
-            ),
-            RotatePropertiesComponent(
-                speed = 0.002f
+                colour = Colour.BLUE
             )
         )
     )
@@ -85,17 +91,14 @@ fun createRotatingSquaresGame(): Game {
         components = listOf(
             TransformComponent(
                 position = Vector2(
-                    x = 80f,
-                    y = 180f
+                    x = -60f,
+                    y = -60f
                 )
             ),
             RectangleSpriteComponent(
                 width = 50f,
                 height = 50f,
                 colour = Colour.GREEN
-            ),
-            RotatePropertiesComponent(
-                speed = 0.003f
             )
         )
     )
@@ -105,17 +108,31 @@ fun createRotatingSquaresGame(): Game {
         components = listOf(
             TransformComponent(
                 position = Vector2(
-                    x = 180f,
-                    y = 180f
+                    x = 60f,
+                    y = -60f
                 )
             ),
             RectangleSpriteComponent(
                 width = 50f,
                 height = 50f,
-                colour = Colour.BLUE
+                colour = Colour.RED
+            )
+        )
+    )
+
+    world.addEntityWithComponents(
+        entity = Entity(id = 5),
+        components = listOf(
+            TransformComponent(
+                position = Vector2(
+                    x = -60f,
+                    y = 60f
+                )
             ),
-            RotatePropertiesComponent(
-                speed = 0.004f
+            RectangleSpriteComponent(
+                width = 50f,
+                height = 50f,
+                colour = Colour.WHITE
             )
         )
     )

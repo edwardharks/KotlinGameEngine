@@ -1,6 +1,7 @@
 package com.edwardharker.kge.system
 
 import com.edwardharker.kge.World
+import com.edwardharker.kge.component.CameraComponent
 import com.edwardharker.kge.component.RectangleSpriteComponent
 import com.edwardharker.kge.component.TransformComponent
 import com.edwardharker.kge.entity.Entity
@@ -13,7 +14,11 @@ class RectangleRenderSystem(
         world.forEachEntityWithComponents { _: Entity,
                                             transform: TransformComponent,
                                             rectangle: RectangleSpriteComponent ->
-            rectangleRenderer.renderRectangle(transform, rectangle)
+            world.forEachEntityWithComponents { _: Entity,
+                                                _: CameraComponent,
+                                                cameraPosition: TransformComponent ->
+                rectangleRenderer.renderRectangle(cameraPosition, transform, rectangle)
+            }
         }
     }
 }
