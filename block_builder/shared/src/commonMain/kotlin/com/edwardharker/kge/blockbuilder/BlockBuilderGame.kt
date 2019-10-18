@@ -2,6 +2,9 @@ package com.edwardharker.kge.blockbuilder
 
 import com.edwardharker.kge.Game
 import com.edwardharker.kge.World
+import com.edwardharker.kge.blockbuilder.component.BlockComponent
+import com.edwardharker.kge.blockbuilder.system.BlockMovementSystem
+import com.edwardharker.kge.blockbuilder.system.BlockReverseDirectionSystem
 import com.edwardharker.kge.canvas.Canvas
 import com.edwardharker.kge.component.RectangleSpriteComponent
 import com.edwardharker.kge.component.TransformComponent
@@ -17,8 +20,10 @@ import com.edwardharker.kge.system.cameraSystem
 import com.edwardharker.kge.util.Colour
 import com.edwardharker.kge.util.Vector2
 
-const val blockHeight = 30f
+const val blockHeight = 40f
 const val initialBlockWidth = 160f
+const val gameWidth = 400f
+const val gameHeight = 400f
 
 
 fun createBlockBuilderGame(): Game {
@@ -34,7 +39,13 @@ fun createBlockBuilderGame(): Game {
         inputSystems = listOf(
             PointerSystem
         ),
-        updateSystems = cameraSystem(),
+        updateSystems = cameraSystem() + listOf(
+            BlockMovementSystem,
+            BlockReverseDirectionSystem(
+                left = -(gameWidth / 2),
+                right = gameWidth / 2
+            )
+        ),
         renderSystems = listOf(
             CameraRenderSystem(cameraRenderer),
             RectangleRenderSystem(rectangleRenderer)
@@ -50,7 +61,9 @@ fun createBlockBuilderGame(): Game {
             position = Vector2(
                 x = -200f,
                 y = 400f
-            )
+            ),
+            size = gameHeight / 2,
+            aspectRatio = gameWidth / gameHeight
         )
     )
 
@@ -78,7 +91,7 @@ fun createBlockBuilderGame(): Game {
         components = listOf(
             TransformComponent(
                 position = Vector2(
-                    x = 0f,
+                    x = -gameWidth,
                     y = blockHeight / 2
                 )
             ),
@@ -86,6 +99,9 @@ fun createBlockBuilderGame(): Game {
                 width = initialBlockWidth,
                 height = blockHeight,
                 colour = Colour.BLUE
+            ),
+            BlockComponent(
+                speed = 0.5f
             )
         )
     )

@@ -75,6 +75,23 @@ class World(
         }
     }
 
+    inline fun <reified T1 : Component, reified T2 : Component, reified T3 : Component> forEachEntityWithComponents(
+        action: (Entity, T1, T2, T3) -> Unit
+    ) {
+        val componentMap1 = getComponentsOfType(T1::class)
+        val componentMap2 = getComponentsOfType(T2::class)
+        val componentMap3 = getComponentsOfType(T3::class)
+
+        for (entity in entities) {
+            val component1 = componentMap1?.get(entity)
+            val component2 = componentMap2?.get(entity)
+            val component3 = componentMap3?.get(entity)
+            if (component1 != null && component2 != null && component3 != null) {
+                action(entity, component1, component2, component3)
+            }
+        }
+    }
+
     internal fun handleInput() {
         inputSystems
             .forEach { system ->
