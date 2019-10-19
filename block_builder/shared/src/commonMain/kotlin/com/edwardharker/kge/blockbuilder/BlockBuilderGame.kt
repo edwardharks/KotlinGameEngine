@@ -11,6 +11,7 @@ import com.edwardharker.kge.component.TransformComponent
 import com.edwardharker.kge.component.cameraComponent
 import com.edwardharker.kge.entity.Entity
 import com.edwardharker.kge.input.Input
+import com.edwardharker.kge.input.PointerAction
 import com.edwardharker.kge.render.CameraRenderer
 import com.edwardharker.kge.render.RectangleRenderer
 import com.edwardharker.kge.system.CameraRenderSystem
@@ -62,8 +63,8 @@ fun createBlockBuilderGame(): Game {
         entity = Entity(0),
         components = cameraComponent(
             position = Vector2(
-                x = -200f,
-                y = 400f
+                x = -gameWidth / 2,
+                y = gameHeight
             ),
             size = gameHeight / 2,
             aspectRatio = gameWidth / gameHeight
@@ -77,12 +78,12 @@ fun createBlockBuilderGame(): Game {
             TransformComponent(
                 position = Vector2(
                     x = 0f,
-                    y = 200f
+                    y = gameHeight / 2
                 )
             ),
             RectangleSpriteComponent(
-                width = 400f,
-                height = 400f,
+                width = gameWidth,
+                height = gameHeight,
                 colour = Colour.GREY
             )
         )
@@ -95,7 +96,7 @@ fun createBlockBuilderGame(): Game {
     )
     world.addEntityWithComponents(
         entity = Entity.create(),
-        components = blockComponents()
+        components = blockComponents(PointerAction.None)
     )
 
     return Game(world = world)

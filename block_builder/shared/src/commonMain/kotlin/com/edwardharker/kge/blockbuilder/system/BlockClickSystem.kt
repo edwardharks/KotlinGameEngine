@@ -21,7 +21,7 @@ object BlockClickSystem : UpdateSystem {
                                             transform: TransformComponent,
                                             rect: RectangleSpriteComponent,
                                             collisionComponent: CollisionComponent ->
-            if (pointer.primaryPointerAction is Up && collisionComponent.collisions.isNotEmpty()) {
+            if (pointer.primaryPointerAction is Down && collisionComponent.collisions.isNotEmpty()) {
                 world.removeComponentOfType(entity, BlockComponent::class)
                 world.removeComponent(entity, pointer)
 
@@ -45,7 +45,8 @@ object BlockClickSystem : UpdateSystem {
                     components = blockComponents(
                         x = collision.bounds.center.x,
                         y = rect.getBoundsAt(transform.position).top + rect.height / 2,
-                        width = collision.bounds.width
+                        width = collision.bounds.width,
+                        pointerAction = world.input.primaryPointer
                     )
                 )
             }

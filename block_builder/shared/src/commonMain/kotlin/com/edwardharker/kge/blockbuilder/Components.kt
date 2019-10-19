@@ -6,6 +6,7 @@ import com.edwardharker.kge.component.Component
 import com.edwardharker.kge.component.PointerComponent
 import com.edwardharker.kge.component.RectangleSpriteComponent
 import com.edwardharker.kge.component.TransformComponent
+import com.edwardharker.kge.input.PointerAction
 import com.edwardharker.kge.util.Colour
 import com.edwardharker.kge.util.Vector2
 
@@ -27,6 +28,7 @@ fun staticBlockComponents(): List<Component> {
 }
 
 fun blockComponents(
+    pointerAction: PointerAction,
     x: Float = -gameWidth,
     y: Float = blockHeight + blockHeight / 2,
     width: Float = initialBlockWidth,
@@ -44,7 +46,7 @@ fun blockComponents(
             height = blockHeight,
             colour = colour
         ),
-        PointerComponent(),
+        PointerComponent(pointerAction),
         CollisionComponent(),
         BlockComponent(
             speed = 0.5f
