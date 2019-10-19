@@ -1,8 +1,8 @@
 package com.edwardharker.kge.entity
 
-inline class Entity(val id: Int) {
+inline class Entity(val id: Long) {
     companion object {
-        private var nextId = Int.MIN_VALUE
+        private var nextId = Long.MIN_VALUE
         fun create(): Entity {
             return Entity(++nextId)
         }

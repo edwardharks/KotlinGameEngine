@@ -2,7 +2,7 @@ package com.edwardharker.kge.blockbuilder
 
 import com.edwardharker.kge.Game
 import com.edwardharker.kge.World
-import com.edwardharker.kge.blockbuilder.component.BlockComponent
+import com.edwardharker.kge.blockbuilder.system.BlockClickSystem
 import com.edwardharker.kge.blockbuilder.system.BlockMovementSystem
 import com.edwardharker.kge.blockbuilder.system.BlockReverseDirectionSystem
 import com.edwardharker.kge.canvas.Canvas
@@ -14,7 +14,9 @@ import com.edwardharker.kge.input.Input
 import com.edwardharker.kge.render.CameraRenderer
 import com.edwardharker.kge.render.RectangleRenderer
 import com.edwardharker.kge.system.CameraRenderSystem
+import com.edwardharker.kge.system.CollisionDebugSystem
 import com.edwardharker.kge.system.PointerSystem
+import com.edwardharker.kge.system.RectangleCollisionSystem
 import com.edwardharker.kge.system.RectangleRenderSystem
 import com.edwardharker.kge.system.cameraSystem
 import com.edwardharker.kge.util.Colour
@@ -44,7 +46,10 @@ fun createBlockBuilderGame(): Game {
             BlockReverseDirectionSystem(
                 left = -(gameWidth / 2),
                 right = gameWidth / 2
-            )
+            ),
+            RectangleCollisionSystem,
+            CollisionDebugSystem,
+            BlockClickSystem
         ),
         renderSystems = listOf(
             CameraRenderSystem(cameraRenderer),
@@ -85,25 +90,14 @@ fun createBlockBuilderGame(): Game {
         )
     )
 
-    // Initial block
+    // Initial blocks
     world.addEntityWithComponents(
         entity = Entity.create(),
-        components = listOf(
-            TransformComponent(
-                position = Vector2(
-                    x = -gameWidth,
-                    y = blockHeight / 2
-                )
-            ),
-            RectangleSpriteComponent(
-                width = initialBlockWidth,
-                height = blockHeight,
-                colour = Colour.BLUE
-            ),
-            BlockComponent(
-                speed = 0.5f
-            )
-        )
+        components = staticBlockComponents()
+    )
+    world.addEntityWithComponents(
+        entity = Entity.create(),
+        components = blockComponents()
     )
 
     return Game(world = world)
