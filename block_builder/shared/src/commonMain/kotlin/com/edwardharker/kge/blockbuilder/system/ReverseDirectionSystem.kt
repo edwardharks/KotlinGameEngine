@@ -9,7 +9,7 @@ import com.edwardharker.kge.component.getBoundsAt
 import com.edwardharker.kge.entity.Entity
 import com.edwardharker.kge.system.UpdateSystem
 
-class BlockReverseDirectionSystem(
+class ReverseDirectionSystem(
     private val left: Float,
     private val right: Float
 ) : UpdateSystem {

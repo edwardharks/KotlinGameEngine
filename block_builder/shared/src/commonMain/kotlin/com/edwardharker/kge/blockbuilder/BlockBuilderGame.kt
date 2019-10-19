@@ -3,8 +3,8 @@ package com.edwardharker.kge.blockbuilder
 import com.edwardharker.kge.Game
 import com.edwardharker.kge.World
 import com.edwardharker.kge.blockbuilder.system.BlockClickSystem
-import com.edwardharker.kge.blockbuilder.system.BlockMovementSystem
-import com.edwardharker.kge.blockbuilder.system.BlockReverseDirectionSystem
+import com.edwardharker.kge.blockbuilder.system.MovementSystem
+import com.edwardharker.kge.blockbuilder.system.ReverseDirectionSystem
 import com.edwardharker.kge.canvas.Canvas
 import com.edwardharker.kge.component.RectangleSpriteComponent
 import com.edwardharker.kge.component.TransformComponent
@@ -14,7 +14,6 @@ import com.edwardharker.kge.input.Input
 import com.edwardharker.kge.render.CameraRenderer
 import com.edwardharker.kge.render.RectangleRenderer
 import com.edwardharker.kge.system.CameraRenderSystem
-import com.edwardharker.kge.system.CollisionDebugSystem
 import com.edwardharker.kge.system.PointerSystem
 import com.edwardharker.kge.system.RectangleCollisionSystem
 import com.edwardharker.kge.system.RectangleRenderSystem
@@ -42,13 +41,12 @@ fun createBlockBuilderGame(): Game {
             PointerSystem
         ),
         updateSystems = cameraSystem() + listOf(
-            BlockMovementSystem,
-            BlockReverseDirectionSystem(
+            MovementSystem,
+            ReverseDirectionSystem(
                 left = -(gameWidth / 2),
                 right = gameWidth / 2
             ),
             RectangleCollisionSystem,
-            CollisionDebugSystem,
             BlockClickSystem
         ),
         renderSystems = listOf(

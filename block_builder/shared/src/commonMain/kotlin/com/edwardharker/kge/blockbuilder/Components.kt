@@ -20,16 +20,17 @@ fun staticBlockComponents(): List<Component> {
         RectangleSpriteComponent(
             width = initialBlockWidth,
             height = blockHeight,
-            colour = Colour.BLUE
+            colour = blockColours.random()
         ),
         CollisionComponent()
     )
 }
 
 fun blockComponents(
-    colour: Colour = Colour.BLUE,
     x: Float = -gameWidth,
-    y: Float = blockHeight + blockHeight / 2
+    y: Float = blockHeight + blockHeight / 2,
+    width: Float = initialBlockWidth,
+    colour: Colour = blockColours.random()
 ): List<Component> {
     return listOf(
         TransformComponent(
@@ -39,7 +40,7 @@ fun blockComponents(
             )
         ),
         RectangleSpriteComponent(
-            width = initialBlockWidth,
+            width = width,
             height = blockHeight,
             colour = colour
         ),

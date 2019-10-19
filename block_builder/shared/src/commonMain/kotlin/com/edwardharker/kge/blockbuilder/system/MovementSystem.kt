@@ -8,7 +8,7 @@ import com.edwardharker.kge.entity.Entity
 import com.edwardharker.kge.system.UpdateSystem
 import com.edwardharker.kge.util.Vector2
 
-object BlockMovementSystem : UpdateSystem {
+object MovementSystem : UpdateSystem {
     override fun update(world: World, deltaTime: Long) {
         world.forEachEntityWithComponents { entity: Entity,
                                             transform: TransformComponent,
