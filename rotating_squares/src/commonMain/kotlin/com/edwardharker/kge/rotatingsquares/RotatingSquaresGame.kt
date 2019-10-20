@@ -56,7 +56,7 @@ fun createRotatingSquaresGame(): Game {
             RotatePropertiesComponent(
                 speed = 0.001f
             ),
-            PointerComponent()
+            PointerComponent(world.input.primaryPointer)
         )
     )
 

@@ -15,17 +15,23 @@ import com.edwardharker.kge.input.PointerAction
 import com.edwardharker.kge.render.CameraRenderer
 import com.edwardharker.kge.render.RectangleRenderer
 import com.edwardharker.kge.system.CameraRenderSystem
+import com.edwardharker.kge.system.FpsLoggingUpdateSystem
 import com.edwardharker.kge.system.PointerSystem
 import com.edwardharker.kge.system.RectangleCollisionSystem
 import com.edwardharker.kge.system.RectangleRenderSystem
+import com.edwardharker.kge.system.RenderDebugInfoRenderSystem
 import com.edwardharker.kge.system.cameraSystem
-import com.edwardharker.kge.util.Colour
+import com.edwardharker.kge.util.Colour.Companion.BLUE
+import com.edwardharker.kge.util.Colour.Companion.GREEN
+import com.edwardharker.kge.util.Colour.Companion.GREY
+import com.edwardharker.kge.util.Colour.Companion.RED
 import com.edwardharker.kge.util.Vector2
 
 const val blockHeight = 40f
 const val initialBlockWidth = 160f
 const val gameWidth = 400f
 const val gameHeight = 400f
+val blockColours = listOf(BLUE, GREEN, RED)
 
 
 fun createBlockBuilderGame(): Game {
@@ -48,11 +54,13 @@ fun createBlockBuilderGame(): Game {
                 right = gameWidth / 2
             ),
             RectangleCollisionSystem,
-            BlockClickSystem
+            BlockClickSystem,
+            FpsLoggingUpdateSystem
         ),
         renderSystems = listOf(
             CameraRenderSystem(cameraRenderer),
-            RectangleRenderSystem(rectangleRenderer)
+            RectangleRenderSystem(rectangleRenderer),
+            RenderDebugInfoRenderSystem
         ),
         canvas = canvas,
         input = Input()
@@ -60,7 +68,7 @@ fun createBlockBuilderGame(): Game {
 
     // Camera
     world.addEntityWithComponents(
-        entity = Entity(0),
+        entity = Entity.create(),
         components = cameraComponent(
             position = Vector2(
                 x = -gameWidth / 2,
@@ -84,7 +92,7 @@ fun createBlockBuilderGame(): Game {
             RectangleSpriteComponent(
                 width = gameWidth,
                 height = gameHeight,
-                colour = Colour.GREY
+                colour = GREY
             )
         )
     )

@@ -49,6 +49,10 @@ class World(
         }
     }
 
+    fun <T : Component> containsComponent(component: KClass<T>): Boolean {
+        return !components[component].isNullOrEmpty()
+    }
+
     fun addOrReplaceComponent(entity: Entity, component: Component) {
         check(_entities.contains(entity)) { "$entity does not exist" }
 
