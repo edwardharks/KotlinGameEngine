@@ -7,6 +7,7 @@ import com.edwardharker.kge.blockbuilder.system.MovementSystem
 import com.edwardharker.kge.blockbuilder.system.ReverseDirectionSystem
 import com.edwardharker.kge.canvas.Canvas
 import com.edwardharker.kge.component.RectangleSpriteComponent
+import com.edwardharker.kge.component.TextComponent
 import com.edwardharker.kge.component.TransformComponent
 import com.edwardharker.kge.component.cameraComponent
 import com.edwardharker.kge.entity.Entity
@@ -14,17 +15,21 @@ import com.edwardharker.kge.input.Input
 import com.edwardharker.kge.input.PointerAction
 import com.edwardharker.kge.render.CameraRenderer
 import com.edwardharker.kge.render.RectangleRenderer
+import com.edwardharker.kge.render.TextRenderer
 import com.edwardharker.kge.system.CameraRenderSystem
 import com.edwardharker.kge.system.FpsLoggingUpdateSystem
 import com.edwardharker.kge.system.PointerSystem
 import com.edwardharker.kge.system.RectangleCollisionSystem
 import com.edwardharker.kge.system.RectangleRenderSystem
 import com.edwardharker.kge.system.RenderDebugInfoRenderSystem
+import com.edwardharker.kge.system.TextRenderSystem
 import com.edwardharker.kge.system.cameraSystem
+import com.edwardharker.kge.util.Colour.Companion.BLACK
 import com.edwardharker.kge.util.Colour.Companion.BLUE
 import com.edwardharker.kge.util.Colour.Companion.GREEN
 import com.edwardharker.kge.util.Colour.Companion.GREY
 import com.edwardharker.kge.util.Colour.Companion.RED
+import com.edwardharker.kge.util.Colour.Companion.WHITE
 import com.edwardharker.kge.util.Vector2
 
 const val blockHeight = 40f
@@ -33,12 +38,14 @@ const val gameWidth = 400f
 const val gameHeight = 400f
 val blockColours = listOf(BLUE, GREEN, RED)
 
-
 fun createBlockBuilderGame(): Game {
     val canvas = Canvas()
 
     val rectangleRenderer = RectangleRenderer()
     canvas.addRenderer(rectangleRenderer)
+
+    val textRenderer = TextRenderer()
+    canvas.addRenderer(textRenderer)
 
     val cameraRenderer = CameraRenderer()
     canvas.addRenderer(cameraRenderer)
@@ -60,6 +67,7 @@ fun createBlockBuilderGame(): Game {
         renderSystems = listOf(
             CameraRenderSystem(cameraRenderer),
             RectangleRenderSystem(rectangleRenderer),
+            TextRenderSystem(textRenderer),
             RenderDebugInfoRenderSystem
         ),
         canvas = canvas,
@@ -105,6 +113,27 @@ fun createBlockBuilderGame(): Game {
     world.addEntityWithComponents(
         entity = Entity.create(),
         components = blockComponents(PointerAction.None)
+    )
+
+    world.addEntityWithComponents(
+        entity = Entity.create(),
+        components = listOf(
+            TransformComponent(
+                position = Vector2(
+                    x = 0f,
+                    y = gameHeight / 2
+                )
+            ),
+            RectangleSpriteComponent(
+                width = 112f,
+                height = 25f,
+                colour = BLACK
+            ),
+            TextComponent(
+                text = "Hello World",
+                colour = WHITE
+            )
+        )
     )
 
     return Game(world = world)
