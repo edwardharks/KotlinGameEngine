@@ -2,7 +2,8 @@ package com.edwardharker.kge.blockbuilder
 
 import com.edwardharker.kge.Game
 import com.edwardharker.kge.World
-import com.edwardharker.kge.blockbuilder.system.BlockClickSystem
+import com.edwardharker.kge.blockbuilder.system.AddBlockFailSystem
+import com.edwardharker.kge.blockbuilder.system.AddBlockSystem
 import com.edwardharker.kge.blockbuilder.system.MovementSystem
 import com.edwardharker.kge.blockbuilder.system.ReverseDirectionSystem
 import com.edwardharker.kge.canvas.Canvas
@@ -61,7 +62,8 @@ fun createBlockBuilderGame(): Game {
                 right = gameWidth / 2
             ),
             RectangleCollisionSystem,
-            BlockClickSystem,
+            AddBlockFailSystem,
+            AddBlockSystem,
             FpsLoggingUpdateSystem
         ),
         renderSystems = listOf(
@@ -113,27 +115,6 @@ fun createBlockBuilderGame(): Game {
     world.addEntityWithComponents(
         entity = Entity.create(),
         components = blockComponents(PointerAction.None)
-    )
-
-    world.addEntityWithComponents(
-        entity = Entity.create(),
-        components = listOf(
-            TransformComponent(
-                position = Vector2(
-                    x = 0f,
-                    y = gameHeight / 2
-                )
-            ),
-            RectangleSpriteComponent(
-                width = 112f,
-                height = 25f,
-                colour = BLACK
-            ),
-            TextComponent(
-                text = "Hello World",
-                colour = WHITE
-            )
-        )
     )
 
     return Game(world = world)
