@@ -4,26 +4,27 @@ import com.edwardharker.kge.World
 import com.edwardharker.kge.blockbuilder.component.BlockComponent
 import com.edwardharker.kge.blockbuilder.gameHeight
 import com.edwardharker.kge.blockbuilder.gameWidth
-import com.edwardharker.kge.component.CollisionComponent
 import com.edwardharker.kge.component.PointerComponent
 import com.edwardharker.kge.component.RectangleSpriteComponent
 import com.edwardharker.kge.component.TextComponent
 import com.edwardharker.kge.component.TransformComponent
+import com.edwardharker.kge.component.getBoundsAt
 import com.edwardharker.kge.entity.Entity
-import com.edwardharker.kge.input.PointerAction.*
 import com.edwardharker.kge.system.UpdateSystem
-import com.edwardharker.kge.util.Colour.Companion.RED
+import com.edwardharker.kge.util.Colour.Companion.GREEN
 import com.edwardharker.kge.util.Colour.Companion.WHITE
 import com.edwardharker.kge.util.Vector2
 
-object AddBlockFailSystem : UpdateSystem {
+object GameSuccessSystem : UpdateSystem {
     override fun update(world: World, deltaTime: Long) {
-        world.forEachEntityWithComponents { entity: Entity,
-                                            pointer: PointerComponent,
-                                            collisionComponent: CollisionComponent ->
-            if (pointer.primaryPointerAction is Down && collisionComponent.collisions.isEmpty()) {
+        world.forEachEntityWithComponents { entity,
+                                            transform: TransformComponent,
+                                            rect: RectangleSpriteComponent,
+                                            _: BlockComponent ->
+            val bounds = rect.getBoundsAt(transform.position)
+            if (bounds.top > gameHeight) {
                 world.removeComponentOfType(entity, BlockComponent::class)
-                world.removeComponent(entity, pointer)
+                world.removeComponentOfType(entity, PointerComponent::class)
 
                 world.addEntityWithComponents(
                     entity = Entity.create(),
@@ -40,9 +41,9 @@ object AddBlockFailSystem : UpdateSystem {
                             colour = WHITE
                         ),
                         TextComponent(
-                            text = "Fail",
+                            text = "Success",
                             size = 40f,
-                            colour = RED
+                            colour = GREEN
                         )
                     )
                 )

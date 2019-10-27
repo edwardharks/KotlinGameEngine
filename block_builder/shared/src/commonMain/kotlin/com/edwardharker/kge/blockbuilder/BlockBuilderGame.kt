@@ -4,11 +4,11 @@ import com.edwardharker.kge.Game
 import com.edwardharker.kge.World
 import com.edwardharker.kge.blockbuilder.system.AddBlockFailSystem
 import com.edwardharker.kge.blockbuilder.system.AddBlockSystem
+import com.edwardharker.kge.blockbuilder.system.GameSuccessSystem
 import com.edwardharker.kge.blockbuilder.system.MovementSystem
 import com.edwardharker.kge.blockbuilder.system.ReverseDirectionSystem
 import com.edwardharker.kge.canvas.Canvas
 import com.edwardharker.kge.component.RectangleSpriteComponent
-import com.edwardharker.kge.component.TextComponent
 import com.edwardharker.kge.component.TransformComponent
 import com.edwardharker.kge.component.cameraComponent
 import com.edwardharker.kge.entity.Entity
@@ -25,12 +25,10 @@ import com.edwardharker.kge.system.RectangleRenderSystem
 import com.edwardharker.kge.system.RenderDebugInfoRenderSystem
 import com.edwardharker.kge.system.TextRenderSystem
 import com.edwardharker.kge.system.cameraSystem
-import com.edwardharker.kge.util.Colour.Companion.BLACK
 import com.edwardharker.kge.util.Colour.Companion.BLUE
 import com.edwardharker.kge.util.Colour.Companion.GREEN
 import com.edwardharker.kge.util.Colour.Companion.GREY
 import com.edwardharker.kge.util.Colour.Companion.RED
-import com.edwardharker.kge.util.Colour.Companion.WHITE
 import com.edwardharker.kge.util.Vector2
 
 const val blockHeight = 40f
@@ -64,6 +62,7 @@ fun createBlockBuilderGame(): Game {
             RectangleCollisionSystem,
             AddBlockFailSystem,
             AddBlockSystem,
+            GameSuccessSystem,
             FpsLoggingUpdateSystem
         ),
         renderSystems = listOf(
