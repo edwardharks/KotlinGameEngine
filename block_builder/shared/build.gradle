@@ -1,7 +1,37 @@
+apply plugin: 'com.android.application'
 apply plugin: 'kotlin-multiplatform'
+
+android {
+    compileSdkVersion 29
+    defaultConfig {
+        applicationId "com.edwardharker.kge.blockbuilder"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+    }
+    sourceSets {
+        main {
+            java.srcDirs = ['src/androidMain/kotlin']
+            res.srcDirs = ['src/androidMain/res']
+            manifest.srcFile 'src/androidMain/AndroidManifest.xml'
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/atomicfu.kotlin_module'
+        exclude 'META-INF/kotlinx-coroutines-core.kotlin_module'
+    }
+}
+
+dependencies {
+    implementation deps.kotlin.stdlib.jdk
+    implementation deps.kotlin.coroutines.android
+}
 
 kotlin {
     targets {
+        fromPreset(presets.android, 'android')
         fromPreset(presets.jvm, 'jvm')
     }
 
@@ -11,6 +41,11 @@ kotlin {
             implementation deps.kotlin.coroutines.common
 
             api project(':engine')
+        }
+
+        androidMain.dependencies {
+            api deps.kotlin.stdlib.jdk
+            api deps.kotlin.coroutines.android
         }
 
         jvmMain.dependencies {

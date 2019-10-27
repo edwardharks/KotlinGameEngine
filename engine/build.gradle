@@ -1,7 +1,29 @@
 apply plugin: 'kotlin-multiplatform'
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 29
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 29
+    }
+
+    sourceSets {
+        main {
+            java.srcDirs = ['src/androidMain/kotlin']
+            manifest.srcFile 'src/androidMain/AndroidManifest.xml'
+        }
+    }
+}
+
+dependencies {
+    implementation deps.kotlin.stdlib.jdk
+}
 
 kotlin {
     targets {
+        fromPreset(presets.android, 'android')
         fromPreset(presets.jvm, 'jvm')
         fromPreset(presets.js, 'js') {
             configure([compilations.main, compilations.test]) {
@@ -29,6 +51,11 @@ kotlin {
         commonMain.dependencies {
             api deps.kotlin.stdlib.common
             api deps.kotlin.coroutines.common
+        }
+
+        androidMain.dependencies {
+            api deps.kotlin.stdlib.jdk
+            api deps.kotlin.coroutines.android
         }
 
         jvmMain.dependencies {

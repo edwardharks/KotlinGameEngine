@@ -1,5 +1,5 @@
 include ':app'
 include ':engine'
 include ':rotating_squares'
-include ':rotating_squares:web'
+//include ':rotating_squares:web'
 include ':block_builder:shared'
