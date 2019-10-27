@@ -23,7 +23,6 @@ actual class CameraRenderer actual constructor() : Renderer {
             val widthRatio = canvas.width / cameraWidth
             val heightRatio = canvas.height / cameraHeight
             val ratio = min(widthRatio, heightRatio)
-
             canvas.scale(ratio, ratio)
 
             canvas.clipRect(0f, 0f, cameraWidth, cameraHeight)
