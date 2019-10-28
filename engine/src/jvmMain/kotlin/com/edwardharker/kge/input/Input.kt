@@ -11,6 +11,7 @@ actual class Input : MouseListener, MouseMotionListener {
         get() = _primaryPointer
 
     override fun mouseReleased(e: MouseEvent) {
+        // TODO translate x and y to game coordinates
         _primaryPointer = PointerAction.Up(e.x.toFloat(), e.y.toFloat())
     }
 
@@ -24,6 +25,7 @@ actual class Input : MouseListener, MouseMotionListener {
     }
 
     override fun mousePressed(e: MouseEvent) {
+        // TODO translate x and y to game coordinates
         _primaryPointer = PointerAction.Down(e.x.toFloat(), e.y.toFloat())
     }
 
@@ -31,6 +33,7 @@ actual class Input : MouseListener, MouseMotionListener {
     }
 
     override fun mouseDragged(e: MouseEvent) {
+        // TODO translate x and y to game coordinates
         _primaryPointer = PointerAction.Move(e.x.toFloat(), e.y.toFloat())
     }
 }

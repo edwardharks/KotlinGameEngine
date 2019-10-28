@@ -11,6 +11,7 @@ class GameView @JvmOverloads constructor(
     var game: Game? = null
         set(value) {
             field = value
+            setOnTouchListener(game?.input)
             game?.canvas?.invalidate = this::invalidate
         }
 
