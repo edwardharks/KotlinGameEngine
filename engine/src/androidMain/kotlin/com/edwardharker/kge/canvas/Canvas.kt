@@ -11,6 +11,8 @@ actual class Canvas actual constructor() {
     private var nextRenderCommands: MutableList<RenderCommand> = mutableListOf()
     private val lock = Any()
 
+    var invalidate: () -> Unit = {}
+
     actual fun addRenderer(renderer: Renderer) {
         renderer.addRenderCommand = this::addRenderCommand
         renderers += renderer
@@ -27,6 +29,7 @@ actual class Canvas actual constructor() {
             currentRenderCommands = nextRenderCommands
             nextRenderCommands = mutableListOf()
         }
+        invalidate()
     }
 
     internal fun draw(canvas: AndroidCanvas) {

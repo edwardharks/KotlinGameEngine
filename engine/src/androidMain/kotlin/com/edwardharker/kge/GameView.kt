@@ -9,9 +9,12 @@ class GameView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
     var game: Game? = null
+        set(value) {
+            field = value
+            game?.canvas?.invalidate = this::invalidate
+        }
 
     override fun onDraw(canvas: Canvas) {
         game?.canvas?.draw(canvas)
-        invalidate()
     }
 }
