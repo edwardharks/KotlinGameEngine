@@ -18,4 +18,12 @@ class GameView @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas) {
         game?.canvas?.draw(canvas)
     }
+
+    companion object {
+        fun create(context: Context, game: Game): GameView {
+            return GameView(context).apply {
+                this.game = game
+            }
+        }
+    }
 }

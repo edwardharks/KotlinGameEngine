@@ -32,9 +32,9 @@ class Game(
             lag += elapsed
 
             while (lag >= MS_PER_UPDATE) {
-                val currentUpdateTime = getCurrentTimeMillis()
-
                 world.handleInput()
+
+                val currentUpdateTime = getCurrentTimeMillis()
 
                 world.update(currentUpdateTime - lastUpdateTime)
 
