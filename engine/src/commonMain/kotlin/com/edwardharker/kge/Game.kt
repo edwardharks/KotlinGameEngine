@@ -22,10 +22,10 @@ class Game(
 
     fun start(scope: CoroutineScope = GlobalScope): Job = scope.launch {
         var previous = getCurrentTimeMillis()
-        var lag = 0.0
+        var lag = 0L
         var lastUpdateTime = getCurrentTimeMillis()
 
-        while (coroutineContext.isActive) {
+        while (isActive) {
             val current = getCurrentTimeMillis()
             val elapsed = current - previous
             previous = current
@@ -43,13 +43,10 @@ class Game(
             }
 
             world.render()
-
-            delay(max(current + MS_PER_FRAME - getCurrentTimeMillis(), 0))
         }
     }
 
     companion object {
         private const val MS_PER_UPDATE = 16
-        private const val MS_PER_FRAME = 16
     }
 }
