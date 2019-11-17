@@ -219,7 +219,7 @@ class World(
             }
     }
 
-    internal fun render() {
+    internal suspend fun render() {
         canvas.startRender()
         renderSystems
             .forEach { system ->

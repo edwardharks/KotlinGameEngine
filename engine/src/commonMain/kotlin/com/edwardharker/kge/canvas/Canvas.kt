@@ -6,5 +6,5 @@ expect class Canvas() {
     fun addRenderer(renderer: Renderer)
 
     internal fun startRender()
-    internal fun endRender()
+    internal suspend fun endRender()
 }

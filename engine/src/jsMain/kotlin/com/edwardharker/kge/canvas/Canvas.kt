@@ -23,5 +23,5 @@ actual class Canvas {
         )
     }
 
-    internal actual fun endRender() = Unit
+    internal actual suspend fun endRender() = Unit
 }

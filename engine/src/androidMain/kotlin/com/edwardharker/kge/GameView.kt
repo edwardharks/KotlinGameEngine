@@ -12,7 +12,7 @@ class GameView @JvmOverloads constructor(
         set(value) {
             field = value
             setOnTouchListener(game?.input)
-            game?.canvas?.invalidate = this::invalidate
+            game?.canvas?.invalidate = this::postInvalidate
         }
 
     override fun onDraw(canvas: Canvas) {
