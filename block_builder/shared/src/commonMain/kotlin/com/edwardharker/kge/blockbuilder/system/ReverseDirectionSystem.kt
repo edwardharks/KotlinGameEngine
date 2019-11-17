@@ -3,16 +3,17 @@ package com.edwardharker.kge.blockbuilder.system
 import com.edwardharker.kge.World
 import com.edwardharker.kge.blockbuilder.component.BlockComponent
 import com.edwardharker.kge.blockbuilder.component.BlockDirection.*
+import com.edwardharker.kge.blockbuilder.gameWidth
 import com.edwardharker.kge.component.RectangleSpriteComponent
 import com.edwardharker.kge.component.TransformComponent
 import com.edwardharker.kge.component.getBoundsAt
 import com.edwardharker.kge.entity.Entity
 import com.edwardharker.kge.system.UpdateSystem
 
-class ReverseDirectionSystem(
-    private val left: Float,
-    private val right: Float
-) : UpdateSystem {
+object ReverseDirectionSystem : UpdateSystem {
+    private const val left = -(gameWidth / 2)
+    private const val right = gameWidth / 2
+
     override fun update(world: World, deltaTime: Long) {
         world.forEachEntityWithComponents { entity: Entity,
                                             transform: TransformComponent,

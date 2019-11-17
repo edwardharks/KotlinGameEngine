@@ -30,7 +30,7 @@ class World(
         _entities += entity
     }
 
-    fun addEntityWithComponents(entity: Entity, components: List<Component>) {
+    fun addEntityWithComponents(entity: Entity = Entity.create(), components: List<Component>) {
         addEntity(entity)
         components.forEach { addOrReplaceComponent(entity, it) }
     }

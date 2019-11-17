@@ -11,8 +11,7 @@ class MainActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val gameView = GameView.create(this, game)
-        setContentView(gameView)
+        setContentView(GameView.create(this, game))
     }
 
     override fun onStart() {

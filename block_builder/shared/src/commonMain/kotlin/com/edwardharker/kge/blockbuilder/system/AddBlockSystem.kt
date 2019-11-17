@@ -1,7 +1,7 @@
 package com.edwardharker.kge.blockbuilder.system
 
 import com.edwardharker.kge.World
-import com.edwardharker.kge.blockbuilder.blockComponents
+import com.edwardharker.kge.blockbuilder.blockComponent
 import com.edwardharker.kge.blockbuilder.component.BlockComponent
 import com.edwardharker.kge.component.CollisionComponent
 import com.edwardharker.kge.component.PointerComponent
@@ -42,7 +42,7 @@ object AddBlockSystem : UpdateSystem {
 
                 world.addEntityWithComponents(
                     entity = Entity.create(),
-                    components = blockComponents(
+                    components = blockComponent(
                         x = collision.bounds.center.x,
                         y = rect.getBoundsAt(transform.position).top + rect.height / 2,
                         width = collision.bounds.width,

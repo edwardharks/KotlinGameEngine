@@ -10,7 +10,7 @@ import com.edwardharker.kge.input.PointerAction
 import com.edwardharker.kge.util.Colour
 import com.edwardharker.kge.util.Vector2
 
-fun staticBlockComponents(): List<Component> {
+fun staticBlockComponent(): List<Component> {
     return listOf(
         TransformComponent(
             position = Vector2(
@@ -27,7 +27,7 @@ fun staticBlockComponents(): List<Component> {
     )
 }
 
-fun blockComponents(
+fun blockComponent(
     pointerAction: PointerAction,
     x: Float = -gameWidth,
     y: Float = blockHeight + blockHeight / 2,
