@@ -212,7 +212,7 @@ class World(
             }
     }
 
-    internal fun update(deltaTime: Long) {
+    internal fun update(deltaTime: Float) {
         updateSystems
             .forEach { system ->
                 system.update(this, deltaTime)

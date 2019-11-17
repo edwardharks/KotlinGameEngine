@@ -15,7 +15,7 @@ import com.edwardharker.kge.util.center
 import com.edwardharker.kge.util.width
 
 object AddBlockSystem : UpdateSystem {
-    override fun update(world: World, deltaTime: Long) {
+    override fun update(world: World, deltaTime: Float) {
         world.forEachEntityWithComponents { entity: Entity,
                                             pointer: PointerComponent,
                                             transform: TransformComponent,

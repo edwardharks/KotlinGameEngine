@@ -14,7 +14,7 @@ object ReverseDirectionSystem : UpdateSystem {
     private const val left = -(gameWidth / 2)
     private const val right = gameWidth / 2
 
-    override fun update(world: World, deltaTime: Long) {
+    override fun update(world: World, deltaTime: Float) {
         world.forEachEntityWithComponents { entity: Entity,
                                             transform: TransformComponent,
                                             rect: RectangleSpriteComponent,

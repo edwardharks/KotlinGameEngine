@@ -12,7 +12,7 @@ import com.edwardharker.kge.util.height
 import com.edwardharker.kge.util.width
 
 object CollisionDebugSystem : UpdateSystem {
-    override fun update(world: World, deltaTime: Long) {
+    override fun update(world: World, deltaTime: Float) {
         val debugEntities = world.getComponentsOfType(CollisionDebugComponent::class)?.keys
         if (debugEntities != null) {
             world.removeEntities(debugEntities)

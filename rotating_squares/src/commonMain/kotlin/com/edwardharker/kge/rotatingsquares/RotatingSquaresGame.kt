@@ -128,7 +128,7 @@ private data class RotatePropertiesComponent(
 ) : Component
 
 private object ChangeDirectionOnClickSystem : UpdateSystem {
-    override fun update(world: World, deltaTime: Long) {
+    override fun update(world: World, deltaTime: Float) {
         world.forEachEntityWithComponents { entity: Entity,
                                             pointer: PointerComponent,
                                             rotateProperties: RotatePropertiesComponent ->
@@ -143,7 +143,7 @@ private object ChangeDirectionOnClickSystem : UpdateSystem {
 }
 
 private object MouseLoggingSystem : UpdateSystem {
-    override fun update(world: World, deltaTime: Long) {
+    override fun update(world: World, deltaTime: Float) {
         world.forEachEntityWithComponent { _, pointerComponent: PointerComponent ->
             println(pointerComponent)
         }

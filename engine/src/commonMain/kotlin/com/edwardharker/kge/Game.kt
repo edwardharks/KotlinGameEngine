@@ -22,8 +22,7 @@ class Game(
 
     fun start(scope: CoroutineScope = GlobalScope): Job = scope.launch {
         var previous = getCurrentTimeMillis()
-        var lag = 0L
-        var lastUpdateTime = getCurrentTimeMillis()
+        var lag = 0.0
 
         while (isActive) {
             val current = getCurrentTimeMillis()
@@ -34,19 +33,16 @@ class Game(
             while (lag >= MS_PER_UPDATE) {
                 world.handleInput()
 
-                val currentUpdateTime = getCurrentTimeMillis()
-
-                world.update(currentUpdateTime - lastUpdateTime)
+                world.update(MS_PER_UPDATE)
 
                 lag -= MS_PER_UPDATE
-                lastUpdateTime = currentUpdateTime
             }
 
             world.render()
         }
     }
 
-    companion object {
-        private const val MS_PER_UPDATE = 16
+    private companion object {
+        private const val MS_PER_UPDATE = 1000f / 60f // 60fps
     }
 }

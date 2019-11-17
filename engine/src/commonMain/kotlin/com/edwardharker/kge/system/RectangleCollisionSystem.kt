@@ -9,7 +9,7 @@ import com.edwardharker.kge.component.getBoundsAt
 import com.edwardharker.kge.util.getIntersectingBounds
 
 object RectangleCollisionSystem : UpdateSystem {
-    override fun update(world: World, deltaTime: Long) {
+    override fun update(world: World, deltaTime: Float) {
         val entities = world.getEntitiesWithComponents(
             TransformComponent::class,
             RectangleSpriteComponent::class,

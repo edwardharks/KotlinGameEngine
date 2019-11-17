@@ -17,7 +17,7 @@ import com.edwardharker.kge.util.Colour.Companion.WHITE
 import com.edwardharker.kge.util.Vector2
 
 object AddBlockFailSystem : UpdateSystem {
-    override fun update(world: World, deltaTime: Long) {
+    override fun update(world: World, deltaTime: Float) {
         world.forEachEntityWithComponents { entity: Entity,
                                             pointer: PointerComponent,
                                             collisionComponent: CollisionComponent ->
