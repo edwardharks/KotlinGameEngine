@@ -11,20 +11,17 @@ object RenderDebugInfoRenderSystem : RenderSystem {
             world.addEntityWithComponents(Entity.create(), listOf(RenderDebugInfoComponent()))
         }
 
-        world.forEachEntityWithComponent { entity, debugInfo: RenderDebugInfoComponent ->
+        world.forEachEntityWithComponent { _, debugInfo: RenderDebugInfoComponent ->
             val lastRenderTime = debugInfo.lastRenderTime
             val currentRenderTime = getCurrentTimeMillis()
             val deltaTime = currentRenderTime - lastRenderTime
             val fps = if (deltaTime > 0) 1000f / deltaTime else debugInfo.fps
 
-            world.addOrReplaceComponent(
-                entity = entity,
-                component = RenderDebugInfoComponent(
-                    lastRenderTime = currentRenderTime,
-                    deltaTime = deltaTime,
-                    fps = fps
-                )
-            )
+            debugInfo.apply {
+                this.lastRenderTime = currentRenderTime
+                this.deltaTime = deltaTime
+                this.fps = fps
+            }
         }
     }
 }

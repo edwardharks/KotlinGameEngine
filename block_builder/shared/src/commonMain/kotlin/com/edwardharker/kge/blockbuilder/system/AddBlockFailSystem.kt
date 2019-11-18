@@ -26,7 +26,6 @@ object AddBlockFailSystem : UpdateSystem {
                 world.removeComponent(entity, pointer)
 
                 world.addEntityWithComponents(
-                    entity = Entity.create(),
                     components = listOf(
                         TransformComponent(
                             position = Vector2(

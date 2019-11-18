@@ -4,7 +4,7 @@ import com.edwardharker.kge.util.Colour
 import com.edwardharker.kge.util.Colour.Companion.BLACK
 
 data class TextComponent(
-    val text: String = "",
-    val size: Float = 20f,
-    val colour: Colour = BLACK
+    var text: String = "",
+    var size: Float = 20f,
+    var colour: Colour = BLACK
 ) : Component

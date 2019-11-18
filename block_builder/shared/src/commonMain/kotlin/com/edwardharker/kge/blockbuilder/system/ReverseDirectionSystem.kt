@@ -21,15 +21,9 @@ object ReverseDirectionSystem : UpdateSystem {
                                             block: BlockComponent ->
             val bounds = rect.getBoundsAt(transform.position)
             if (bounds.left <= left) {
-                world.addOrReplaceComponent(
-                    entity = entity,
-                    component = block.copy(direction = Right)
-                )
+                block.direction = Right
             } else if (bounds.right >= right) {
-                world.addOrReplaceComponent(
-                    entity = entity,
-                    component = block.copy(direction = Left)
-                )
+                block.direction = Left
             }
         }
     }

@@ -21,10 +21,7 @@ object MovementSystem : UpdateSystem {
                 x = transform.position.x + speed * deltaTime,
                 y = transform.position.y
             )
-            world.addOrReplaceComponent(
-                entity = entity,
-                component = transform.copy(position = newPosition)
-            )
+            transform.position = newPosition
         }
     }
 }

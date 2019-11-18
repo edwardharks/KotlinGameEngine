@@ -27,21 +27,10 @@ object AddBlockSystem : UpdateSystem {
 
                 val collision = collisionComponent.collisions.first()
 
-                world.addOrReplaceComponent(
-                    entity = entity,
-                    component = rect.copy(width = collision.bounds.width)
-                )
-                world.addOrReplaceComponent(
-                    entity = entity,
-                    component = transform.copy(
-                        position = transform.position.copy(
-                            x = collision.bounds.center.x
-                        )
-                    )
-                )
+                rect.width = collision.bounds.width
+                transform.position.x = collision.bounds.center.x
 
                 world.addEntityWithComponents(
-                    entity = Entity.create(),
                     components = blockComponent(
                         x = collision.bounds.center.x,
                         y = rect.getBoundsAt(transform.position).top + rect.height / 2,

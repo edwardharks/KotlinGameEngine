@@ -16,19 +16,18 @@ object RectangleCollisionSystem : UpdateSystem {
             CollisionComponent::class
         )
 
-        for ((entity1, transform1, rect1, _) in entities) {
+        for ((entity1, transform1, rect1, collision1) in entities) {
             val bounds1 = rect1.getBoundsAt(transform1.position)
-            val collisions = mutableListOf<Collision>()
+            collision1.collisions.clear()
             for ((entity2, transform2, rect2, _) in entities) {
                 if (entity1 != entity2) {
                     val bounds2 = rect2.getBoundsAt(transform2.position)
                     val intersectingBounds = bounds1.getIntersectingBounds(bounds2)
                     if (intersectingBounds != null) {
-                        collisions.add(Collision(entity2, intersectingBounds))
+                        collision1.collisions.add(Collision(entity2, intersectingBounds))
                     }
                 }
             }
-            world.addOrReplaceComponent(entity1, CollisionComponent(collisions))
         }
     }
 }

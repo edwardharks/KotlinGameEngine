@@ -5,9 +5,9 @@ import com.edwardharker.kge.util.Colour
 import com.edwardharker.kge.util.Vector2
 
 data class RectangleSpriteComponent(
-    val width: Float,
-    val height: Float,
-    val colour: Colour
+    var width: Float,
+    var height: Float,
+    var colour: Colour
 ) : Component
 
 fun RectangleSpriteComponent.getBoundsAt(position: Vector2): Bounds {

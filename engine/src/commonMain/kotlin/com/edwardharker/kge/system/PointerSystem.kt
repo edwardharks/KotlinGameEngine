@@ -7,17 +7,14 @@ import com.edwardharker.kge.input.PointerAction
 object PointerSystem : InputSystem {
     override fun handleInput(world: World) {
         val newPointer = world.input.primaryPointer
-        world.forEachEntityWithComponent { entity, pointer: PointerComponent ->
+        world.forEachEntityWithComponent { _, pointer: PointerComponent ->
             val sanitizedPointerAction = when (val oldPointer = pointer.primaryPointerAction) {
                 is PointerAction.Up -> transitionFromUp(oldPointer, newPointer)
                 is PointerAction.Down -> transitionFromDown(oldPointer, newPointer)
                 is PointerAction.Move -> transitionFromMove(oldPointer, newPointer)
                 is PointerAction.None -> transitionFromNone(oldPointer, newPointer)
             }
-            world.addOrReplaceComponent(
-                entity = entity,
-                component = PointerComponent(primaryPointerAction = sanitizedPointerAction)
-            )
+            pointer.primaryPointerAction = sanitizedPointerAction
         }
     }
 

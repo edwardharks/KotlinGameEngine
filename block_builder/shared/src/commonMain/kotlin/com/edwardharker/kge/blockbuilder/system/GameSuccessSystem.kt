@@ -27,7 +27,6 @@ object GameSuccessSystem : UpdateSystem {
                 world.removeComponentOfType(entity, PointerComponent::class)
 
                 world.addEntityWithComponents(
-                    entity = Entity.create(),
                     components = listOf(
                         TransformComponent(
                             position = Vector2(

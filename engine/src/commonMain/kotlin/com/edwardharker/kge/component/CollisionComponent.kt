@@ -4,10 +4,10 @@ import com.edwardharker.kge.entity.Entity
 import com.edwardharker.kge.util.Bounds
 
 data class CollisionComponent(
-    val collisions: List<Collision> = emptyList()
+    var collisions: MutableList<Collision> = mutableListOf()
 ) : Component
 
 data class Collision(
-    val other: Entity,
-    val bounds: Bounds
+    var other: Entity,
+    var bounds: Bounds
 )
