@@ -41,8 +41,8 @@ fun createBlockBuilderGame(): Game {
             // Camera
             +cameraComponent(
                 position = Vector2(
-                    x = -gameWidth / 2,
-                    y = gameHeight
+                    x = 0f,
+                    y = gameHeight / 2
                 ),
                 size = gameHeight / 2,
                 aspectRatio = gameWidth / gameHeight

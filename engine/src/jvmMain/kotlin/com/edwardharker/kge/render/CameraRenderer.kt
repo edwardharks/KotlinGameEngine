@@ -17,8 +17,8 @@ actual class CameraRenderer : Renderer {
             val cameraWidth = cameraHeight * camera.aspectRatio
             graphics.setClip(0, 0, cameraWidth.toInt(), cameraHeight.toInt())
             graphics.translate(
-                (-cameraGraphics2DPosition.x).toInt(),
-                (-cameraGraphics2DPosition.y).toInt()
+                (-cameraGraphics2DPosition.x + cameraWidth / 2).toInt(),
+                (-cameraGraphics2DPosition.y + cameraHeight / 2).toInt()
             )
         }
     }

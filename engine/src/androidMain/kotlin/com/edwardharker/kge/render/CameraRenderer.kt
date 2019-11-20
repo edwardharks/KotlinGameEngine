@@ -26,8 +26,8 @@ actual class CameraRenderer actual constructor() : Renderer {
             canvas.clipRect(0f, 0f, cameraWidth, cameraHeight)
 
             canvas.translate(
-                -cameraGraphics2DPosition.x,
-                -cameraGraphics2DPosition.y
+                -cameraGraphics2DPosition.x + cameraWidth / 2,
+                -cameraGraphics2DPosition.y + cameraHeight / 2
             )
         }
     }
