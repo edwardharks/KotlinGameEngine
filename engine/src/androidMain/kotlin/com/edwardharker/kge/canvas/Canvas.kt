@@ -2,6 +2,7 @@ package com.edwardharker.kge.canvas
 
 import com.edwardharker.kge.render.RenderCommand
 import com.edwardharker.kge.render.Renderer
+import kotlinx.coroutines.isActive
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -25,7 +26,7 @@ actual class Canvas actual constructor() {
 
     internal actual fun startRender() {
         synchronized(endRenderContinuationLock) {
-            check(endRenderContinuation == null)
+            checkContinuationIsNotActive()
         }
         synchronized(renderCommandLock) {
             renderCommands = mutableListOf()
@@ -35,7 +36,7 @@ actual class Canvas actual constructor() {
     internal actual suspend fun endRender() {
         return suspendCoroutine { continuation ->
             synchronized(endRenderContinuationLock) {
-                check(endRenderContinuation == null)
+                checkContinuationIsNotActive()
                 endRenderContinuation = continuation
             }
             invalidate()
@@ -59,5 +60,10 @@ actual class Canvas actual constructor() {
         synchronized(renderCommandLock) {
             renderCommands.add(command)
         }
+    }
+
+    private fun checkContinuationIsNotActive() {
+        val continuation = endRenderContinuation
+        check(continuation == null || !continuation.context.isActive)
     }
 }
