@@ -12,8 +12,7 @@ import kotlin.coroutines.suspendCoroutine
 actual class Canvas : JPanel() {
     private val renderers = mutableListOf<Renderer>()
 
-    private var currentRenderCommands: List<RenderCommand> = listOf()
-    private var nextRenderCommands: MutableList<RenderCommand> = mutableListOf()
+    private var renderCommands: MutableList<RenderCommand> = mutableListOf()
     private val renderCommandLock = Any()
 
     private var endRenderContinuation: Continuation<Unit>? = null
@@ -28,7 +27,7 @@ actual class Canvas : JPanel() {
         super.paintComponent(g)
         if (g != null) {
             val renderCommands = synchronized(renderCommandLock) {
-                return@synchronized currentRenderCommands.toList()
+                return@synchronized renderCommands.toList()
             }
             renderCommands.forEach { command ->
                 command.invoke(g)
@@ -45,20 +44,14 @@ actual class Canvas : JPanel() {
             check(endRenderContinuation == null)
         }
         synchronized(renderCommandLock) {
-            nextRenderCommands = mutableListOf()
+            renderCommands = mutableListOf()
         }
     }
 
     internal actual suspend fun endRender() {
-        synchronized(endRenderContinuationLock) {
-            check(endRenderContinuation == null)
-        }
-        synchronized(renderCommandLock) {
-            currentRenderCommands = nextRenderCommands
-            nextRenderCommands = mutableListOf()
-        }
         return suspendCoroutine { continuation ->
             synchronized(endRenderContinuationLock) {
+                check(endRenderContinuation == null)
                 endRenderContinuation = continuation
             }
             repaint()
@@ -67,7 +60,7 @@ actual class Canvas : JPanel() {
 
     private fun addRenderCommand(command: RenderCommand) {
         synchronized(renderCommandLock) {
-            nextRenderCommands.add(command)
+            renderCommands.add(command)
         }
     }
 }

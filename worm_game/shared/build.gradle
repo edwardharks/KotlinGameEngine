@@ -4,7 +4,7 @@ apply plugin: 'kotlin-multiplatform'
 android {
     compileSdkVersion 29
     defaultConfig {
-        applicationId "com.edwardharker.kge.blockbuilder"
+        applicationId "com.edwardharker.kge.wormgame"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1

@@ -10,8 +10,7 @@ import android.graphics.Canvas as AndroidCanvas
 actual class Canvas actual constructor() {
     private val renderers = mutableListOf<Renderer>()
 
-    private var currentRenderCommands: List<RenderCommand> = listOf()
-    private var nextRenderCommands: MutableList<RenderCommand> = mutableListOf()
+    private var renderCommands: MutableList<RenderCommand> = mutableListOf()
     private val renderCommandLock = Any()
 
     private var endRenderContinuation: Continuation<Unit>? = null
@@ -29,20 +28,14 @@ actual class Canvas actual constructor() {
             check(endRenderContinuation == null)
         }
         synchronized(renderCommandLock) {
-            nextRenderCommands = mutableListOf()
+            renderCommands = mutableListOf()
         }
     }
 
     internal actual suspend fun endRender() {
-        synchronized(endRenderContinuationLock) {
-            check(endRenderContinuation == null)
-        }
-        synchronized(renderCommandLock) {
-            currentRenderCommands = nextRenderCommands
-            nextRenderCommands = mutableListOf()
-        }
         return suspendCoroutine { continuation ->
             synchronized(endRenderContinuationLock) {
+                check(endRenderContinuation == null)
                 endRenderContinuation = continuation
             }
             invalidate()
@@ -51,7 +44,7 @@ actual class Canvas actual constructor() {
 
     internal fun draw(canvas: AndroidCanvas) {
         val renderCommands = synchronized(renderCommandLock) {
-            return@synchronized currentRenderCommands.toList()
+            return@synchronized renderCommands.toList()
         }
         renderCommands.forEach { command ->
             command.invoke(canvas)
@@ -64,7 +57,7 @@ actual class Canvas actual constructor() {
 
     private fun addRenderCommand(command: RenderCommand) {
         synchronized(renderCommandLock) {
-            nextRenderCommands.add(command)
+            renderCommands.add(command)
         }
     }
 }
