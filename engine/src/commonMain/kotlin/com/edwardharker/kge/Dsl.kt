@@ -5,9 +5,11 @@ import com.edwardharker.kge.component.Component
 import com.edwardharker.kge.entity.Entity
 import com.edwardharker.kge.input.Input
 import com.edwardharker.kge.render.CameraRenderer
+import com.edwardharker.kge.render.CircleRenderer
 import com.edwardharker.kge.render.RectangleRenderer
 import com.edwardharker.kge.render.TextRenderer
 import com.edwardharker.kge.system.CameraRenderSystem
+import com.edwardharker.kge.system.CircleRenderSystem
 import com.edwardharker.kge.system.InputSystem
 import com.edwardharker.kge.system.PointerSystem
 import com.edwardharker.kge.system.RectangleRenderSystem
@@ -109,6 +111,7 @@ fun world(init: WorldBuilder.() -> Unit): World {
         renderSystems {
             +cameraRenderSystem(canvas)
             +rectangleRenderSystem(canvas)
+            +circleRenderSystem(canvas)
             +textRenderSystem(canvas)
             +RenderDebugInfoRenderSystem
         }
@@ -136,6 +139,12 @@ fun rectangleRenderSystem(canvas: Canvas): RenderSystem {
     val rectangleRenderer = RectangleRenderer()
     canvas.addRenderer(rectangleRenderer)
     return RectangleRenderSystem(rectangleRenderer)
+}
+
+fun circleRenderSystem(canvas: Canvas): RenderSystem {
+    val circleRenderer = CircleRenderer()
+    canvas.addRenderer(circleRenderer)
+    return CircleRenderSystem(circleRenderer)
 }
 
 fun textRenderSystem(canvas: Canvas): RenderSystem {

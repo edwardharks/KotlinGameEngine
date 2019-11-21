@@ -1,5 +1,6 @@
 package com.edwardharker.kge.wormgame.gameobject
 
+import com.edwardharker.kge.component.CircleSpriteComponent
 import com.edwardharker.kge.component.Component
 import com.edwardharker.kge.component.RectangleSpriteComponent
 import com.edwardharker.kge.component.TransformComponent
@@ -22,9 +23,8 @@ fun bird(
                 y = birdBottomMargin
             )
         ),
-        RectangleSpriteComponent(
-            width = columnSize,
-            height = columnSize,
+        CircleSpriteComponent(
+            radius = columnSize,
             colour = colour
         )
     )
