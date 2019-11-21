@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Paint.Align.*
 
+// TODO change to a simple object pool and use Paint#reset
 object PaintCache {
     private val paints = mutableMapOf<PaintData, Paint>()
 

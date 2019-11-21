@@ -20,10 +20,11 @@ actual class CircleRenderer actual constructor() : Renderer {
                 val rectGraphics2DPosition = transform.position.toGraphics2DSpace()
 
 
-                val radius = circle.radius.toInt()
-                val xPosition = rectGraphics2DPosition.x - (radius / 2)
-                val yPosition = rectGraphics2DPosition.y - (radius / 2)
-                fillOval(xPosition.toInt(), yPosition.toInt(), radius, radius)
+                val radius = circle.radius
+                val xPosition = rectGraphics2DPosition.x - radius
+                val yPosition = rectGraphics2DPosition.y - radius
+                val diameter = (radius * 2).toInt()
+                fillOval(xPosition.toInt(), yPosition.toInt(), diameter, diameter)
             }
         }
     }

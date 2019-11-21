@@ -24,7 +24,7 @@ fun bird(
             )
         ),
         CircleSpriteComponent(
-            radius = columnSize,
+            radius = columnSize / 2,
             colour = colour
         )
     )
