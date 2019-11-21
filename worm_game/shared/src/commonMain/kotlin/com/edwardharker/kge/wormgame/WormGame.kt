@@ -9,6 +9,8 @@ import com.edwardharker.kge.world
 import com.edwardharker.kge.wormgame.gameobject.background
 import com.edwardharker.kge.wormgame.gameobject.bird
 import com.edwardharker.kge.wormgame.gameobject.camera
+import com.edwardharker.kge.wormgame.gameobject.worm
+import com.edwardharker.kge.wormgame.system.WormMovementSystem
 
 const val gameWidth = 450f
 const val gameHeight = 800f
@@ -17,6 +19,10 @@ const val columnSize = 80f
 
 fun createWormGame(): Game {
     val world = world {
+        updateSystems {
+            +WormMovementSystem
+        }
+
         gameObjects {
             +camera()
 
@@ -38,8 +44,37 @@ fun createWormGame(): Game {
                 column = 3,
                 colour = BLACK
             )
+
+            +worm(
+                column = 0,
+                colour = GREEN,
+                units = 2
+            )
+            +worm(
+                column = 1,
+                colour = BLUE,
+                units = 3
+            )
+            +worm(
+                column = 2,
+                colour = RED,
+                units = 1
+            )
+            +worm(
+                column = 3,
+                colour = BLACK,
+                units = 4
+            )
         }
     }
 
     return Game(world = world)
 }
+
+fun calculateColumnX(column: Int): Float {
+    val halfWidth = columnSize / 2
+    return columnSpacing * (column + 1) + halfWidth + columnSize * column
+}
+
+private val columnSpacing: Float
+    get() = (gameWidth - columnSize * columns) / (columns + 1)

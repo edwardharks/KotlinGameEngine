@@ -1,12 +1,12 @@
 package com.edwardharker.kge.util
 
-import android.graphics.Rect
+import android.graphics.RectF
 
-fun Bounds.toRect(): Rect {
-    return Rect(
-        this.left.toInt(),
-        -this.top.toInt(),
-        this.right.toInt(),
-        -this.bottom.toInt()
+fun Bounds.toRect(): RectF {
+    return RectF(
+        this.left,
+        -this.top,
+        this.right,
+        -this.bottom
     )
 }

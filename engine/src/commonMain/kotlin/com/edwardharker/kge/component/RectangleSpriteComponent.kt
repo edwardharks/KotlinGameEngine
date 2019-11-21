@@ -7,7 +7,8 @@ import com.edwardharker.kge.util.Vector2
 data class RectangleSpriteComponent(
     var width: Float,
     var height: Float,
-    var colour: Colour
+    var colour: Colour,
+    var cornerRadius: Float = 0f
 ) : Component
 
 fun RectangleSpriteComponent.getBoundsAt(position: Vector2): Bounds {

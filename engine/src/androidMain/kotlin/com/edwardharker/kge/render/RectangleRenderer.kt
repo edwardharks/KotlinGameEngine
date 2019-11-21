@@ -19,7 +19,7 @@ actual class RectangleRenderer actual constructor() : Renderer {
             PaintObjectPool.use { paint ->
                 paint.color = rectangle.colour.toColor()
                 val rect = rectangle.getBoundsAt(transform.position).toRect()
-                canvas.drawRect(rect, paint)
+                canvas.drawRoundRect(rect, rectangle.cornerRadius, rectangle.cornerRadius, paint)
             }
         }
     }

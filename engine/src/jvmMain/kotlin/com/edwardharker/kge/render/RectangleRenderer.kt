@@ -24,7 +24,15 @@ actual class RectangleRenderer : Renderer {
                     xPosition.toInt(),
                     yPosition.toInt()
                 )
-                fillRect(0, 0, rectangle.width.toInt(), rectangle.height.toInt())
+                val cornerRadius = rectangle.cornerRadius.toInt()
+                fillRoundRect(
+                    0,
+                    0,
+                    rectangle.width.toInt(),
+                    rectangle.height.toInt(),
+                    cornerRadius,
+                    cornerRadius
+                )
             }
         }
     }
