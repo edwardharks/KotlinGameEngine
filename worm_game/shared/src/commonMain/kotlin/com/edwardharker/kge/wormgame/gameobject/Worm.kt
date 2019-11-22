@@ -1,5 +1,6 @@
 package com.edwardharker.kge.wormgame.gameobject
 
+import com.edwardharker.kge.component.ColliderComponent
 import com.edwardharker.kge.component.Component
 import com.edwardharker.kge.component.RectangleSpriteComponent
 import com.edwardharker.kge.component.TransformComponent
@@ -30,6 +31,7 @@ fun worm(
         ),
         WormComponent(
             speed = 0.5f
-        )
+        ),
+        ColliderComponent()
     )
 }

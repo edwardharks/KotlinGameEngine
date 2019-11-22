@@ -1,6 +1,7 @@
 package com.edwardharker.kge.blockbuilder
 
 import com.edwardharker.kge.blockbuilder.component.BlockComponent
+import com.edwardharker.kge.component.ColliderComponent
 import com.edwardharker.kge.component.CollisionComponent
 import com.edwardharker.kge.component.Component
 import com.edwardharker.kge.component.PointerComponent
@@ -23,6 +24,7 @@ fun staticBlockComponent(): List<Component> {
             height = blockHeight,
             colour = blockColours.random()
         ),
+        ColliderComponent(),
         CollisionComponent()
     )
 }
@@ -47,6 +49,7 @@ fun blockComponent(
             colour = colour
         ),
         PointerComponent(pointerAction),
+        ColliderComponent(),
         CollisionComponent(),
         BlockComponent(
             speed = 0.5f

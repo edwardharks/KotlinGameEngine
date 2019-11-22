@@ -10,9 +10,12 @@ import com.edwardharker.kge.render.RectangleRenderer
 import com.edwardharker.kge.render.TextRenderer
 import com.edwardharker.kge.system.CameraRenderSystem
 import com.edwardharker.kge.system.CircleRenderSystem
+import com.edwardharker.kge.system.CircleSpriteColliderSystem
+import com.edwardharker.kge.system.CollisionSystem
 import com.edwardharker.kge.system.InputSystem
 import com.edwardharker.kge.system.PointerSystem
 import com.edwardharker.kge.system.RectangleRenderSystem
+import com.edwardharker.kge.system.RectangleSpriteColliderSystem
 import com.edwardharker.kge.system.RenderDebugInfoRenderSystem
 import com.edwardharker.kge.system.RenderSystem
 import com.edwardharker.kge.system.TextRenderSystem
@@ -106,6 +109,12 @@ fun world(init: WorldBuilder.() -> Unit): World {
     val worldBuilder = WorldBuilder().apply {
         inputSystems {
             +PointerSystem
+        }
+
+        updateSystems {
+            +RectangleSpriteColliderSystem
+            +CircleSpriteColliderSystem
+            +CollisionSystem
         }
 
         renderSystems {

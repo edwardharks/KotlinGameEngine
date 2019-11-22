@@ -126,6 +126,46 @@ class World(
         }
     }
 
+    internal fun <T1 : Component> getEntitiesWithComponent(
+        component1: KClass<T1>
+    ): List<EntityWithComponent1<T1>> {
+        val componentMap1 = getComponentsOfType(component1)
+
+        return entities.mapNotNull { entity ->
+            val c1 = componentMap1?.get(entity)
+            if (c1 != null) {
+                EntityWithComponent1(
+                    entity = entity,
+                    component1 = c1
+                )
+            } else {
+                null
+            }
+        }
+    }
+
+    internal fun <T1 : Component, T2 : Component> getEntitiesWithComponents(
+        component1: KClass<T1>,
+        component2: KClass<T2>
+    ): List<EntityWithComponent2<T1, T2>> {
+        val componentMap1 = getComponentsOfType(component1)
+        val componentMap2 = getComponentsOfType(component2)
+
+        return entities.mapNotNull { entity ->
+            val c1 = componentMap1?.get(entity)
+            val c2 = componentMap2?.get(entity)
+            if (c1 != null && c2 != null) {
+                EntityWithComponent2(
+                    entity = entity,
+                    component1 = c1,
+                    component2 = c2
+                )
+            } else {
+                null
+            }
+        }
+    }
+
     internal fun <T1 : Component, T2 : Component, T3 : Component> getEntitiesWithComponents(
         component1: KClass<T1>,
         component2: KClass<T2>,

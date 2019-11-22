@@ -11,7 +11,6 @@ import com.edwardharker.kge.component.TransformComponent
 import com.edwardharker.kge.component.cameraComponent
 import com.edwardharker.kge.input.PointerAction
 import com.edwardharker.kge.system.FpsLoggingUpdateSystem
-import com.edwardharker.kge.system.RectangleCollisionSystem
 import com.edwardharker.kge.util.Colour.Companion.BLUE
 import com.edwardharker.kge.util.Colour.Companion.GREEN
 import com.edwardharker.kge.util.Colour.Companion.GREY
@@ -30,7 +29,6 @@ fun createBlockBuilderGame(): Game {
         updateSystems {
             +MovementSystem
             +ReverseDirectionSystem
-            +RectangleCollisionSystem
             +AddBlockFailSystem
             +AddBlockSystem
             +GameSuccessSystem

@@ -22,7 +22,9 @@ val Bounds.center: Vector2
         y = bottom + height / 2
     )
 
-fun Bounds.getIntersectingBounds(other: Bounds): Bounds? {
+fun Bounds?.getIntersectingBounds(other: Bounds?): Bounds? {
+    if (this == null || other == null) return null
+
     val left = max(left, other.left)
     val bottom = max(bottom, other.bottom)
 

@@ -1,6 +1,7 @@
 package com.edwardharker.kge.wormgame
 
 import com.edwardharker.kge.Game
+import com.edwardharker.kge.system.CollisionDebugSystem
 import com.edwardharker.kge.util.Colour.Companion.BLACK
 import com.edwardharker.kge.util.Colour.Companion.BLUE
 import com.edwardharker.kge.util.Colour.Companion.GREEN
@@ -21,6 +22,7 @@ fun createWormGame(): Game {
     val world = world {
         updateSystems {
             +WormMovementSystem
+            +CollisionDebugSystem
         }
 
         gameObjects {
