@@ -23,7 +23,7 @@ class World(
     val entities: Set<Entity>
         get() = _entities.toSet()
 
-    private val components: ComponentMap = mutableMapOf()
+    private val components: ComponentMap = LinkedHashMap()
 
     fun addEntity(entity: Entity) {
         require(!_entities.contains(entity)) { "$entity already exists" }
@@ -57,7 +57,7 @@ class World(
         check(_entities.contains(entity)) { "$entity does not exist" }
 
         if (!components.containsKey(component::class)) {
-            components[component::class] = mutableMapOf()
+            components[component::class] = LinkedHashMap()
         }
 
         components[component::class]!![entity] = component
