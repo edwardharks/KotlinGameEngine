@@ -1,5 +1,7 @@
 package com.edwardharker.kge.input
 
-expect class Input() {
+import com.edwardharker.kge.system.UpdateSystem
+
+expect class Input() : UpdateSystem {
     val primaryPointer: PointerAction
 }

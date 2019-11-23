@@ -36,9 +36,9 @@ object PointerSystem : InputSystem {
     ): PointerAction {
         return when (newPointer) {
             is PointerAction.Up -> newPointer
-            is PointerAction.Down -> PointerAction.Move(oldPointer.x, oldPointer.y)
+            is PointerAction.Down -> PointerAction.Move(oldPointer.position)
             is PointerAction.Move -> newPointer
-            is PointerAction.None -> PointerAction.Up(oldPointer.x, oldPointer.y)
+            is PointerAction.None -> PointerAction.Up(oldPointer.position)
         }
     }
 
@@ -50,7 +50,7 @@ object PointerSystem : InputSystem {
             is PointerAction.Up -> newPointer
             is PointerAction.Down -> oldPointer
             is PointerAction.Move -> oldPointer
-            is PointerAction.None -> PointerAction.Up(oldPointer.x, oldPointer.y)
+            is PointerAction.None -> PointerAction.Up(oldPointer.position)
         }
     }
 
@@ -61,7 +61,7 @@ object PointerSystem : InputSystem {
         return when (newPointer) {
             is PointerAction.Up -> PointerAction.None
             is PointerAction.Down -> newPointer
-            is PointerAction.Move -> PointerAction.Down(oldPointer.x, oldPointer.y)
+            is PointerAction.Move -> PointerAction.Down(oldPointer.position)
             is PointerAction.None -> newPointer
         }
     }

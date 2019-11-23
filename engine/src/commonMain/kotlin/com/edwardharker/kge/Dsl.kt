@@ -112,6 +112,7 @@ fun world(init: WorldBuilder.() -> Unit): World {
         }
 
         updateSystems {
+            +this@apply.input
             +RectangleSpriteColliderSystem
             +CircleSpriteColliderSystem
             +CollisionSystem

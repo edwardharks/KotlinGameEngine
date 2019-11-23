@@ -14,7 +14,7 @@ actual class CameraRenderer actual constructor() : Renderer {
         camera: CameraComponent
     ) {
         addRenderCommand { canvas ->
-            val cameraGraphics2DPosition = cameraPosition.position.toAndroidCanvasSpace()
+            val cameraCanvasPosition = cameraPosition.position.toAndroidCanvasSpace()
             val cameraHeight = 2 * camera.size
             val cameraWidth = cameraHeight * camera.aspectRatio
 
@@ -26,8 +26,8 @@ actual class CameraRenderer actual constructor() : Renderer {
             canvas.clipRect(0f, 0f, cameraWidth, cameraHeight)
 
             canvas.translate(
-                -cameraGraphics2DPosition.x + cameraWidth / 2,
-                -cameraGraphics2DPosition.y + cameraHeight / 2
+                -cameraCanvasPosition.x + cameraWidth / 2,
+                -cameraCanvasPosition.y + cameraHeight / 2
             )
         }
     }

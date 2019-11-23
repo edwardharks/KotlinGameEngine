@@ -1,18 +1,19 @@
 package com.edwardharker.kge.input
 
+import com.edwardharker.kge.util.Vector2
+
 sealed class PointerAction {
     object None : PointerAction()
-    data class Down(override val x: Float, override val y: Float) : PointerAction(),
+    data class Down(override val position: Vector2) : PointerAction(),
         ActionWithPosition
 
-    data class Move(override val x: Float, override val y: Float) : PointerAction(),
+    data class Move(override val position: Vector2) : PointerAction(),
         ActionWithPosition
 
-    data class Up(override val x: Float, override val y: Float) : PointerAction(),
+    data class Up(override val position: Vector2) : PointerAction(),
         ActionWithPosition
 
     interface ActionWithPosition {
-        val x: Float
-        val y: Float
+        val position: Vector2
     }
 }
