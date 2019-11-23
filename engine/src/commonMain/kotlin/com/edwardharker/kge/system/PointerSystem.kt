@@ -25,7 +25,7 @@ object PointerSystem : InputSystem {
         return when (newPointer) {
             is PointerAction.Up -> oldPointer
             is PointerAction.Down -> newPointer
-            is PointerAction.Move -> oldPointer
+            is PointerAction.Move -> PointerAction.Down(newPointer.position)
             is PointerAction.None -> oldPointer
         }
     }
