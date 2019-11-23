@@ -49,7 +49,7 @@ object PointerSystem : InputSystem {
         return when (newPointer) {
             is PointerAction.Up -> newPointer
             is PointerAction.Down -> oldPointer
-            is PointerAction.Move -> oldPointer
+            is PointerAction.Move -> newPointer
             is PointerAction.None -> PointerAction.Up(oldPointer.position)
         }
     }
